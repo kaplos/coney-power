@@ -23,7 +23,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="text-2xl font-bold text-blue-600">
-            <img src="/logo.png" alt="Coney Power Logo" className="h-10 w-auto"/>
+            <img src="/logo.png" alt="Coney Power Logo" className="h-14 w-auto"/>
           </div>
 
           {/* Desktop Navigation */}

@@ -47,6 +47,14 @@ const Membership = () => {
       popular: false,
     },
   ];
+  
+const handleCheckout = async () => {
+  const res = await fetch('/api/checkout', {
+    method: 'POST',
+  });
+  const data = await res.json();
+  window.location.href = data.url; // redirect to Stripe Checkout
+};
 
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -89,8 +97,8 @@ const Membership = () => {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#"
+              <button
+                onClick={handleCheckout}
                 className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center ${
                   plan.popular
                     ? 'bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300'
@@ -98,7 +106,7 @@ const Membership = () => {
                 }`}
               >
                 Get started
-              </a>
+              </button>
             </div>
           ))}
         </div>

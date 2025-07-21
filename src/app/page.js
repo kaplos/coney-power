@@ -6,8 +6,10 @@ import Membership from '@/components/Membership';
 import Gallery from '@/components/Gallery';
 import Footer from '@/components/Footer';
 
-const Home = () => {
-  return (
+export default function Home(){
+
+
+return (
     <div className="min-h-screen bg-white">
       <Header />
       <main>
@@ -23,4 +25,3 @@ const Home = () => {
   );
 };
 
-export default Home;
