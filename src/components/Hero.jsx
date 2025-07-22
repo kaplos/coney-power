@@ -18,7 +18,7 @@ const Hero = () => {
       <div className="bg-black/50  absolute top-0 left-0" />
     <div className="relative z-10 p-8 text-center md:text-left space-y-4">
       <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-        Train Hard. <span className="text-blue-400">Stay Strong.</span>
+        Train Hard. <span className="text-blue-400"> Live fully</span>
       </h1>
       <p className="text-lg text-gray-200">
         Classes for every body, every day.
