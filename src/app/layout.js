@@ -22,7 +22,7 @@ export const metadata = {
     siteName: 'Coney Power',
     images: [
       {
-        url: '/icon.jpeg', // Can be full URL or relative path from /public
+        url: 'https://www.coneypower.com/icon.jpeg', // Can be full URL or relative path from /public
         width: 1200,
         height: 630,
         alt: 'Preview Image',
