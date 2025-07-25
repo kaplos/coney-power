@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { format, startOfWeek, addDays, isSameDay, parseISO, getHours } from 'date-fns';
 import ScheduleCard from './ScheduleCard';
-
 // Replace with your real fetch from Supabase or API
 const fetchClasses = async () => {
   try {

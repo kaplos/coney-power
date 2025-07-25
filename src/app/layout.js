@@ -12,6 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://coneypower.com'),
   title: "Coney Power",
   description: "Train hard, Live fully",
   openGraph: {

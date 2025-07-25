@@ -4,8 +4,8 @@
 import Airtable from 'airtable';
 
 // Debugging environment variables
-console.log('AIRTABLE_API_KEY:', process.env.AIRTABLE_API_KEY || 'Not Set');
-console.log('AIRTABLE_BASE_ID:', process.env.AIRTABLE_BASE_ID || 'Not Set');
+// console.log('AIRTABLE_API_KEY:', process.env.AIRTABLE_API_KEY || 'Not Set');
+// console.log('AIRTABLE_BASE_ID:', process.env.AIRTABLE_BASE_ID || 'Not Set');
 
 // Initialize Airtable base
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
@@ -28,9 +28,13 @@ export async function GET(req) {
       
       .firstPage();
 
-    const data = records.map((record) => record.fields);
+      // const data = records.map((record) => record.fields);
+      const data = records.map((record) => ({
+        id: record.id,
+        ...record.fields,
+      }));
+      console.log('Fetched data:', data);
 
-    console.log('Fetched data:', data);
 
     return new Response(JSON.stringify(data), {
       status: 200,

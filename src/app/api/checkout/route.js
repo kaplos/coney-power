@@ -5,14 +5,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET);
 export async function POST(request) {
   const { searchParams } = new URL(request.url);
   const item = searchParams.get('item');
+  // const metaData = searchParams.get('metaData') || ''; // Default metadata if not provided
   const objectMap = {
-    Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' },
-    Standard: { price: 'price_1RnVswRUl1PVsffzyhA5YAVH', mode: 'subscription' },
-    Unlimited: { price: 'price_1RnVtdRUl1PVsffzcBCipXo9', mode: 'subscription' },
+    Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' ,metaData: "recXjTTaQ0P0TIUUV" },
+    Standard: { price: 'price_1RnVswRUl1PVsffzyhA5YAVH', mode: 'subscription' ,metaData: "recmhCHMBAsIVzwjf" },
+    Unlimited: { price: 'price_1RnVtdRUl1PVsffzcBCipXo9', mode: 'subscription' ,metaData: "recvQgIdOQQIK4W46" },
     default: { price: 2999, mode: 'payment' },
   };
   
-  const { price, mode } = objectMap[item] ?? objectMap.default;
+  const {
+  price = null,
+  mode = null,
+  metaData = searchParams.get('metaData'),
+} = objectMap[item] ?? objectMap.default;
   console.log('Item:', item, 'Price:', price, 'Mode:', mode);
   
   try {
@@ -37,8 +42,11 @@ export async function POST(request) {
           quantity:1
         }
       ],
+      metadata:{
+        product: metaData
+      },
       mode,
-      success_url: `${request.headers.get('origin')}/success?item=${item}`,
+      success_url: `${request.headers.get('origin')}/success?item=${item}&metaData=${metaData}`,
       cancel_url: `${request.headers.get('origin')}`,
     });
     console.log('Checkout session created:', session);

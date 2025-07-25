@@ -48,14 +48,14 @@ const Membership = () => {
     },
   ];
   
-const handleCheckout = async () => {
-  const res = await fetch(`/api/checkout?item=${item}`, {
-    method: 'POST',
-  });
-  const data = await res.json();
-  console.log(data)
-  window.location.href = data.url; // redirect to Stripe Checkout
-};
+// const handleCheckout = async () => {
+//   const res = await fetch(`/api/checkout?item=${item}&metaData=${}`, {
+//     method: 'POST',
+//   });
+//   const data = await res.json();
+//   console.log(data)
+//   window.location.href = data.url; // redirect to Stripe Checkout
+// };
 
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -99,7 +99,7 @@ const handleCheckout = async () => {
                 ))}
               </ul>
               
-              <CheckoutButton item={plan.name} popular={plan.popular}/>
+              <CheckoutButton item={plan.name} metaData={plan.id||plan.name} popular={plan.popular}/>
             </div>
           ))}
         </div>

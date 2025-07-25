@@ -1,6 +1,6 @@
 "use client";
 import { format, parseISO } from "date-fns";
-
+import CheckoutButton from "./CheckoutButton";
 export default function ScheduleCard({ classInfo }) {
   // {
   //     'Class Name': 'Spin Class',
@@ -38,7 +38,14 @@ export default function ScheduleCard({ classInfo }) {
         <div className="text-xs text-gray-500">
           {classInfo["Class Instructor"]}
         </div>
-        
+        <div>
+          <CheckoutButton
+            disabled={classInfo["Available Spots"] <= 0}
+            item={classInfo["Class Name"]}
+            metaData={classInfo.id || classInfo["Class Name"]}
+            popular={false}
+          />
+        </div>
       </div>
     </div>
   );
