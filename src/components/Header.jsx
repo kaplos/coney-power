@@ -1,10 +1,12 @@
 'use client'
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { LogIn, Menu, X } from 'lucide-react';
+import { useSession, signIn, signOut } from "next-auth/react";
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const {data: session} = useSession()
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -37,6 +39,7 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
+            <LogIn/>
           </div>
 
           {/* Mobile Menu Button */}

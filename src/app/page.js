@@ -16,6 +16,8 @@ return (
         <Hero />
 
         <Schedule />
+        <Schedule />
+        <Schedule />
         <Membership />
         {/* <hr className="border-t border-gray-800 space-x-6"/> */}
         {/* <Gallery /> */}
