@@ -7,10 +7,10 @@ export async function POST(request) {
   const item = searchParams.get('item');
   // const metaData = searchParams.get('metaData') || ''; // Default metadata if not provided
   const objectMap = {
-    Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' ,metaData: "recXjTTaQ0P0TIUUV" },
-    Standard: { price: 'price_1RnVswRUl1PVsffzyhA5YAVH', mode: 'subscription' ,metaData: "recmhCHMBAsIVzwjf" },
-    Unlimited: { price: 'price_1RnVtdRUl1PVsffzcBCipXo9', mode: 'subscription' ,metaData: "recvQgIdOQQIK4W46" },
-    default: { price: 2999, mode: 'payment' },
+    // Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' ,metaData: "recXjTTaQ0P0TIUUV" },
+    Standard: { price: 'price_1Rw6zARUl1PVsffznBgfCgK1', mode: 'subscription' ,metaData: "recmhCHMBAsIVzwjf" },
+    Unlimited: { price: 'price_1Rw6x9RUl1PVsffzOtg7jd5p', mode: 'subscription' ,metaData: "recvQgIdOQQIK4W46" },
+    default: {  price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'subscription' },
   };
   
   const {

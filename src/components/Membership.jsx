@@ -4,47 +4,38 @@ import { Check, Star } from 'lucide-react';
 import CheckoutButton from './CheckoutButton';
 const Membership = () => {
   const plans = [
-    {
-      name: 'Basic',
-      price: 29,
-      period: 'month',
-      description: 'Perfect for getting started',
-      features: [
-        'Access to gym equipment',
-        '2 group classes per week',
-        'Locker room access',
-        'Basic fitness assessment',
-      ],
-      popular: false,
-    },
+    // {
+    //   name: 'Basic',
+    //   price: 29,
+    //   period: 'month',
+    //   description: 'Perfect for getting started',
+    //   features: [
+    //     'Access to gym equipment',
+    //     '2 group classes per week',
+    //     'Locker room access',
+    //     'Basic fitness assessment',
+    //   ],
+    //   popular: false,
+    // },
     {
       name: 'Standard',
-      price: 49,
+      price: 150,
       period: 'month',
-      description: 'Most popular choice',
+      description: 'Budget friendly option',
       features: [
-        'Everything in Basic',
-        'Unlimited group classes',
-        'Personal trainer consultation',
-        'Nutrition guidance',
-        'Guest passes (2 per month)',
+        'Limited to 6 Classes Per Month'
       ],
-      popular: true,
+      popular: false,
     },
     {
       name: 'Unlimited',
-      price: 79,
+      price: 200,
       period: 'month',
       description: 'Complete fitness experience',
       features: [
-        'Everything in Standard',
-        'Unlimited personal training',
-        '24/7 gym access',
-        'Premium amenities',
-        'Meal planning service',
-        'Recovery & spa services',
+        'Unlimited access to classes'
       ],
-      popular: false,
+      popular: true,
     },
   ];
   
@@ -58,7 +49,7 @@ const Membership = () => {
 // };
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white dark:bg-gray-900" id='membership'>
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
