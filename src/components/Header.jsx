@@ -18,7 +18,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-lg border-b border-gray-100">
+    <header className="sticky top-0 z-50 bg-black shadow-lg border-b border-gray-100">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -32,7 +32,7 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-2 py-1"
+                className="text-white hover:text-[#C5A572] font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C5A572] focus:ring-offset-2 rounded-sm px-2 py-1"
               >
                 {item.name}
               </a>
@@ -58,7 +58,7 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-2 py-2"
+                  className="text-white hover:text-[#C5A572] font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C5A572] focus:ring-offset-2 rounded-sm px-2 py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

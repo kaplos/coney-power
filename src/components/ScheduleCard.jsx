@@ -1,52 +1,50 @@
 "use client";
+import { useState } from "react";
 import { format, parseISO } from "date-fns";
 import CheckoutButton from "./CheckoutButton";
 export default function ScheduleCard({ classInfo }) {
-  // {
-  //     'Class Name': 'Spin Class',
-  //     'Class Description': 'An intense cycling workout to improve cardiovascular health.',
-  //     'Class Time': '2025-07-21T04:00:00.000Z',
-  //     Instructor: [ 'recRkZ7HViQsXy220' ],
-  //     Capacity: 20,
-  //     Bookings: [ 'recfcTllr5Mhw1reH', 'rec9372iRxjlJwzNZ', 'recFBONqYBWW46jVA' ],
-  //     'Class Photo': [ [Object] ],
-  //     'Available Spots': 19,
-  //     'Instructor Email': [ 'johndoe@example0f94.com' ],
-  //     'Instructor Specialization': [ 'Yoga' ],
-  //     'Booking Count': 3,
-  //     'End Time': '2025-07-21T22:49:00.000Z'
-  //   },
+  const [showDescription, setShowDescription] = useState(false);
+
   return (
-    <div>
-      <div className="bg-white shadow-md rounded-lg p-4 mb-4">
-        <h3 className="text-lg font-semibold text-blue-600 mb-2">
+    <div className="bg-black shadow rounded-lg p-2 mb-2 flex flex-col gap-1 w-full max-w-[170px] mx-auto sm:max-w-[180px]">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-bold text-[#C5A572] truncate">
           {classInfo["Class Name"]}
         </h3>
-        <hr />
-        <div className="flex flex-col text-black">
-          <span>Start - End</span>
-          <span>
-            {format(parseISO(classInfo["Class Time"]), "h")} -{" "}
-            {format(parseISO(classInfo["End Time"]), "h")}
-          </span>
-        </div>
-
-        <span className="text-black">Space Left: {classInfo["Available Spots"]}</span>
-        <div className="text-sm text-gray-600">
+        <span className="text-xs text-gray-500">
+          {classInfo["Available Spots"] > 0
+            ? `${classInfo["Available Spots"]} left`
+            : "Full"}
+        </span>
+      </div>
+      <div className="flex items-center justify-between text-xs text-gray-500">
+        <span>{format(parseISO(classInfo["Class Time"]), "h:mm a")}</span>
+        <span>-</span>
+        <span>{format(parseISO(classInfo["End Time"]), "h:mm a")}</span>
+      </div>
+      <button
+        className="text-xs text-gray-400 underline text-left"
+        onClick={() => setShowDescription((v) => !v)}
+        type="button"
+      >
+        {showDescription ? "Hide Description" : "Show Description"}
+      </button>
+      {showDescription && (
+        <div className="text-xs text-gray-300 mt-1">
           {classInfo["Class Description"]}
         </div>
-        <div className="text-xs text-gray-500">
+      )}
+      {classInfo["Class Instructor"] && (
+        <div className="text-xs text-gray-400 italic truncate">
           {classInfo["Class Instructor"]}
         </div>
-        <div>
-          <CheckoutButton
-            disabled={classInfo["Available Spots"] <= 0}
-            item={classInfo["Class Name"]}
-            metaData={classInfo.id || classInfo["Class Name"]}
-            popular={false}
-          />
-        </div>
-      </div>
+      )}
+      <CheckoutButton
+        disabled={classInfo["Available Spots"] <= 0}
+        item={classInfo["Class Name"]}
+        metaData={classInfo.id || classInfo["Class Name"]}
+        popular={false}
+      />
     </div>
   );
 }

@@ -3,17 +3,16 @@
 import React from 'react';
 
 const images = [
-  '/images/gallery-1.jpg',
-  '/images/gallery-2.jpg',
-  '/images/gallery-3.jpg',
-  '/images/gallery-4.jpg',
-  '/images/gallery-5.jpg',
-  '/images/gallery-6.jpg',
+  '/images/IMG_2504.PNG',
+  '/images/IMG_2505.JPG',
+  '/images/IMG_2507.jpg',
+  '/images/IMG_2508.jpeg',
+  '/images/IMG_2513.jpg',
 ];
 
 export default function MovingGallery() {
   return (
-    <div className="w-full overflow-hidden bg-white dark:bg-gray-900 py-6 ">
+    <div id='gallery' className="w-full overflow-hidden bg-black py-6 ">
       <div className="whitespace-nowrap animate-scroll flex items-center gap-4">
         {[...images, ...images].map((src, i) => (
           <img

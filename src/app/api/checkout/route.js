@@ -4,13 +4,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 export async function POST(request) {
   const { searchParams } = new URL(request.url);
+  console.log('Received checkout request with params:', Object.fromEntries(searchParams.entries()));
   const item = searchParams.get('item');
   // const metaData = searchParams.get('metaData') || ''; // Default metadata if not provided
   const objectMap = {
     // Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' ,metaData: "recXjTTaQ0P0TIUUV" },
     Standard: { price: 'price_1Rw6zARUl1PVsffznBgfCgK1', mode: 'subscription' ,metaData: "recmhCHMBAsIVzwjf" },
     Unlimited: { price: 'price_1Rw6x9RUl1PVsffzOtg7jd5p', mode: 'subscription' ,metaData: "recvQgIdOQQIK4W46" },
-    default: {  price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'subscription' },
+    'Single Class': { price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'payment' },
+    // Kids: { price: 'price_1S1b3eRUl1PVsffz7qTtY2nK', mode: 'subscription' ,metaData: "recbXjTTaQ0P0TIUUV" },
+    default: {  price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'payment' },
   };
   
   const {
@@ -26,13 +29,14 @@ export async function POST(request) {
       line_items: [
         mode === 'payment'?
         {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: item,
-            },
-            unit_amount: price,
-          },
+          // price_data: {
+          //   currency: 'usd',
+          //   product_data: {
+          //     name: item,
+          //   },
+          //   unit_amount: price,
+          // },
+          price: price,
           quantity: 1,
         }
         :

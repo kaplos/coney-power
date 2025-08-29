@@ -37,8 +37,8 @@ const handleCheckout = async () => {
       disabled
         ? 'bg-gray-300 cursor-not-allowed text-gray-500'
         : popular
-        ? 'bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300'
-        : 'bg-blue-600 hover:bg-gray-200 text-gray-900 focus:ring-4 focus:ring-gray-300'
+        ? 'bg-[#C5A572] hover:bg-blue-700 focus:ring-4 focus:ring-blue-300'
+        : 'bg-[#C5A572] hover:bg-gray-200 text-gray-900 focus:ring-4 focus:ring-gray-300'
     }`}
 >
   Get started

@@ -10,15 +10,14 @@ export default function Home(){
 
 
 return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen  bg-white">
       <Header />
       <main>
         <Hero />
-
+        <Gallery />
         <Schedule />
         <Membership />
         {/* <hr className="border-t border-gray-800 space-x-6"/> */}
-        {/* <Gallery /> */}
       </main>
       <Footer />
     </div>
