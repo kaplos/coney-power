@@ -43,7 +43,7 @@ const Membership = () => {
      {
       name: 'Single Class',
       price: 45 ,
-      period: 'month',
+      period: 'One-time',
       description: 'Perfect for getting started',
       features: [
         'Access to one class',
@@ -59,6 +59,16 @@ const Membership = () => {
       description: 'Complete fitness experience',
       features: [
         'Unlimited access to kids classes'
+      ],
+      popular: true,
+    },
+      {
+      name: 'Single Kids Class',
+      price: 30,
+      period: 'One-time',
+      description: 'Single kid class',
+      features: [
+        'Access to one kid class'
       ],
       popular: true,
     },

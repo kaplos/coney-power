@@ -74,7 +74,7 @@ const Footer = () => {
               </div> */}
               <div className="flex items-center gap-3 text-gray-300">
                 <Mail size={18} className="text-red-700" />
-                <span>coneypower18@gmail.com</span>
+                <span>support@coneypower.com</span>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ const Footer = () => {
               </div>
               <div className="flex justify-between">
                 <span>Mon - Thu:</span>
-                <span>6:00 AM - 8 PM</span>
+                <span>6:00 AM - 10:00 PM</span>
               </div> 
                <div className="flex justify-between">
                 <span>Friday:</span>
