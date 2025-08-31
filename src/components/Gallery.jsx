@@ -3,11 +3,11 @@
 import React from 'react';
 
 const images = [
-  '/images/IMG_2504.PNG',
   '/images/IMG_2505.JPG',
-  '/images/IMG_2507.jpg',
   '/images/IMG_2508.jpeg',
+  '/images/IMG_2504.PNG',
   '/images/IMG_2513.jpg',
+  '/images/IMG_2507.jpg',
 ];
 
 export default function MovingGallery() {

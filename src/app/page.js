@@ -5,6 +5,7 @@ import Schedule from '@/components/Schedule';
 import Membership from '@/components/Membership';
 import Gallery from '@/components/Gallery';
 import Footer from '@/components/Footer';
+import FreeTrial from '@/components/FreeTrial';
 
 export default function Home(){
 
@@ -15,6 +16,7 @@ return (
       <main>
         <Hero />
         <Gallery />
+        <FreeTrial />
         <Schedule />
         <Membership />
         {/* <hr className="border-t border-gray-800 space-x-6"/> */}
