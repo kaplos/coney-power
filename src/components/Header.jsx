@@ -29,7 +29,7 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8 bg-white">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -39,7 +39,15 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
-            <LogIn/>
+            <button>
+              {session ? <div className="flex items-center gap-2 cursor-pointer" onClick={() => signOut()}>
+                <img src={session.user.image} alt="User Avatar" className="h-8 w-8 rounded-full"/>
+                <span className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-2 py-1">{session.user.name}</span>
+              </div> : 
+              <div onClick={() => signIn()} className="flex items-center gap-2 cursor-pointer">
+                <span className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-2 py-1">Sign In</span>
+              </div>}
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
