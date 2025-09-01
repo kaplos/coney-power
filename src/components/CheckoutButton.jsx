@@ -1,10 +1,12 @@
 'use client';
 
 import { loadStripe } from '@stripe/stripe-js';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE);
 
 export default function CheckoutButton({ item = 'Basic',popular = false ,metaData = '',disabled =false }) {
+  const { data: session } = useSession();
 //   const handleCheckout = async () => {
 //     const stripe = await stripePromise;
 
@@ -30,19 +32,19 @@ const handleCheckout = async () => {
   };
   return (
    <button
-  onClick={handleCheckout}
-  disabled={disabled} // <-- Add this line
-  className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center
-    ${
-      disabled
-        ? 'bg-gray-300 cursor-not-allowed text-gray-500'
-        : popular
-        ? 'bg-[#C5A572] hover:bg-blue-700 focus:ring-4 focus:ring-blue-300'
-        : 'bg-[#C5A572] hover:bg-gray-200 text-gray-900 focus:ring-4 focus:ring-gray-300'
-    }`}
->
-  Get started
-</button>
+    onClick={handleCheckout}
+    disabled={disabled} // <-- Add this line
+    className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center
+      ${
+        disabled
+          ? 'bg-gray-300 cursor-not-allowed text-gray-500'
+          : popular
+          ? 'bg-[#C5A572] hover:bg-blue-700 focus:ring-4 focus:ring-blue-300'
+          : 'bg-[#C5A572] hover:bg-gray-200 text-gray-900 focus:ring-4 focus:ring-gray-300'
+      }`}
+  > 
+    Get started
+  </button>
 
   );
 }

@@ -1,8 +1,10 @@
 import Stripe from 'stripe';
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 export async function POST(request) {
+  const userSession = await getServerSession(authOptions);
   const { searchParams } = new URL(request.url);
   console.log('Received checkout request with params:', Object.fromEntries(searchParams.entries()));
   const item = searchParams.get('item');
@@ -45,10 +47,15 @@ export async function POST(request) {
         {
           price: price,
           quantity:1
-        }
+        },
+
       ],
+      customer_email: userSession?.user?.email || undefined,
       metadata:{
-        product: metaData
+        product: metaData,
+        // user: userSession?.user?.email || 'guest',
+        userId: userSession?.user?.id || '0',
+
       },
       mode,
       success_url: `${request.headers.get('origin')}/success?item=${item}&metaData=${metaData}`,

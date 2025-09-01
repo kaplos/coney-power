@@ -1,5 +1,4 @@
 import Airtable from "airtable";
-import { add } from "date-fns";
 import Stripe from "stripe";
 
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
@@ -26,7 +25,8 @@ export async function POST(request) {
     return await addToAirtable(event);
     } else if (event.type === "customer.subscription.deleted") {
       return await editAirtable(event);
-    }else {
+    } else {
+      console.log('Unhandled event :', event);
       // ❗️ Catch-all response for unhandled event types
       return new Response("Unhandled event type", { status: 200 });
     }
@@ -48,11 +48,15 @@ async function addToAirtable(event) {
     const {
       customer_details = {},
       metadata = {},
+      mode = "",
       subscription = "",
       payment_intent = "",
     } = rest.data.object;
+
+    console.log('mode',mode)
     console.log(JSON.stringify(customer_details, null, 2));
 
+    if(mode === "payment"){
     // Example: Signature verification (optional)
     // const signature = headers.get("stripe-signature");
 
@@ -60,9 +64,10 @@ async function addToAirtable(event) {
     // const jsonBody = JSON.parse(body);
     base("tblefuz5SkZIDP0sl").create(
       {
-        fldki6xSYyXXMvI24:customer_details.email, // Customer Email
-        fld6cwjzBKEuYgD55: customer_details.name, // Customer Name
-        fldygM7z866FZ1FBq: [metadata.product], // class id from airtable
+        // fldki6xSYyXXMvI24: customer_details.email, // Customer Email
+        // fld6cwjzBKEuYgD55: customer_details.name, // Customer Name
+        "Members": metadata.userId,
+        // fldygM7z866FZ1FBq: [metadata.product], // class id from airtable
         fldKgeZdfw9HPYXG0: subscription || payment_intent, //PaymentID from stripe
       },
       function (err, record) {
@@ -73,6 +78,36 @@ async function addToAirtable(event) {
         console.log("Record created:", record.getId());
       }
     );
+  } else if (mode === "subscription") {
+    console.log("Handling subscription creation in Airtable");
+    // Handle subscription logic
+    const records = await base('tblEuSd8AfoXS8rau')
+    .select({
+      filterByFormula: `{Member ID} = "${metadata.userId}"`,
+      maxRecords: 1,
+    })
+    .firstPage();
+    
+    base("tblEuSd8AfoXS8rau").update(
+      [{id: records[0].id, fields: {
+        'Membership Type' : metadata.product,
+        'Subscription Status': "Active",
+        'Subscription Start Date': new Date().toISOString().split('T')[0],
+        'Subscription Id': subscription,
+
+      }}]
+      ,
+      function (err, record) {
+        if (err) {
+          console.error("Error creating record:", err);
+          return;
+        }
+        console.log("Record created:", record.getId());
+      }
+    );
+  }else{
+    console.log("Unhandled mode:", mode);
+  }
 
     // console.log("Webhook received:", body);
 

@@ -1,10 +1,11 @@
 'use client'
 import { useState } from 'react';
-import { LogIn, Menu, X } from 'lucide-react';
+import { LogIn, Menu, X, User} from 'lucide-react';
 import { useSession, signIn, signOut } from "next-auth/react";
 
 
 const Header = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {data: session} = useSession()
   const toggleMenu = () => {
@@ -29,7 +30,7 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 bg-white">
+          <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -39,15 +40,40 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
-            <button>
-              {session ? <div className="flex items-center gap-2 cursor-pointer" onClick={() => signOut()}>
-                <img src={session.user.image} alt="User Avatar" className="h-8 w-8 rounded-full"/>
-                <span className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-2 py-1">{session.user.name}</span>
-              </div> : 
-              <div onClick={() => signIn()} className="flex items-center gap-2 cursor-pointer">
-                <span className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-2 py-1">Sign In</span>
-              </div>}
-            </button>
+            
+            <div className="relative">
+              {session ? (
+                <div
+                  className="flex items-center rounded-md bg-[#C5A572] cursor-pointer relative"
+                  onClick={() => setIsDropdownOpen((v) => !v)}
+                >
+                  {/* <img src={session.user.image} alt="User Avatar" className="h-8 w-8 rounded-full"/> */}
+                  <User className="text-white rounded-md" />
+                  <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                    {session.user.name}
+                  </span>
+                  {/* Dropdown positioned directly under the button */}
+                  {isDropdownOpen && (
+                    <div className="absolute left-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+                      <button
+                        onClick={() => signOut()}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Log Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div onClick={() => signIn()} className="flex items-center gap-2 cursor-pointer">
+                  <button className="rounded-md text-gray-700 bg-[#C5A572]">
+                    <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                      Sign In
+                    </span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -74,8 +100,26 @@ const Header = () => {
                 >
                   {item.name}
                 </a>
+                
               ))}
-            </div>
+                {session ? (
+                  <div onClick={() => {signOut(); }} className="flex items-center gap-2 cursor-pointer">
+                    <button className="rounded-md text-gray-700 p-2 bg-[#C5A572]">
+                      <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                        Log Out
+                      </span>
+                    </button>
+                  </div>
+                ) : (
+                  <div onClick={() => {signIn(); }} className="flex items-center gap-2 cursor-pointer">
+                    <button className="rounded-md text-gray-700 p-2 bg-[#C5A572]">
+                      <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                        Sign In
+                      </span>
+                    </button>
+                  </div>
+                )}
+              </div>
           </div>
         )}
       </nav>
