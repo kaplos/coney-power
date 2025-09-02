@@ -2,14 +2,12 @@
 // import 'dotenv/config';
 // import './env'
 import Airtable from 'airtable';
-
+import base from '@/lib/airtableBase.js';
 // Debugging environment variables
 // console.log('AIRTABLE_API_KEY:', process.env.AIRTABLE_API_KEY || 'Not Set');
 // console.log('AIRTABLE_BASE_ID:', process.env.AIRTABLE_BASE_ID || 'Not Set');
 
 // Initialize Airtable base
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
-
 export async function GET(req) {
   const startOfWeek = new Date();
   startOfWeek.setHours(0, 0, 0, 0);

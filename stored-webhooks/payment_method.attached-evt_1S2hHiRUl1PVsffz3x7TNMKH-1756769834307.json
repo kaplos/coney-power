@@ -1,0 +1,66 @@
+{
+  "id": "evt_1S2hHiRUl1PVsffz3x7TNMKH",
+  "object": "event",
+  "api_version": "2025-06-30.basil",
+  "created": 1756769833,
+  "data": {
+    "object": {
+      "id": "pm_1S2hHfRUl1PVsffzwFkSG3wu",
+      "object": "payment_method",
+      "allow_redisplay": "limited",
+      "billing_details": {
+        "address": {
+          "city": null,
+          "country": "US",
+          "line1": null,
+          "line2": null,
+          "postal_code": "62262",
+          "state": null
+        },
+        "email": "candminnovators@gmail.com",
+        "name": "fcygvhbjnmk;l",
+        "phone": null,
+        "tax_id": null
+      },
+      "card": {
+        "brand": "visa",
+        "checks": {
+          "address_line1_check": null,
+          "address_postal_code_check": "pass",
+          "cvc_check": "pass"
+        },
+        "country": "US",
+        "display_brand": "visa",
+        "exp_month": 12,
+        "exp_year": 2028,
+        "fingerprint": "OMqtiDVDrtqAuthU",
+        "funding": "credit",
+        "generated_from": null,
+        "last4": "4242",
+        "networks": {
+          "available": [
+            "visa"
+          ],
+          "preferred": null
+        },
+        "regulated_status": "unregulated",
+        "three_d_secure_usage": {
+          "supported": true
+        },
+        "wallet": null
+      },
+      "created": 1756769831,
+      "customer": "cus_Syeav2zWRziia2",
+      "livemode": false,
+      "metadata": {},
+      "type": "card"
+    }
+  },
+  "livemode": false,
+  "pending_webhooks": 2,
+  "request": {
+    "id": null,
+    "idempotency_key": "6aee98ee-dcaa-4075-a13c-946c4ae1c84c"
+  },
+  "type": "payment_method.attached"
+}

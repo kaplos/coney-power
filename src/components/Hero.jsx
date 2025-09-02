@@ -1,8 +1,10 @@
 'use client';
 import { ArrowRight } from 'lucide-react';
-
+import { useSession } from 'next-auth/react';
 
 export default function Hero () {
+  const { data: session, status } = useSession({ required: false });
+  const hasActiveSubscription = session?.user?.subscriptionStatus === 'Active';
   return (
     <section
   id="home"
@@ -29,9 +31,10 @@ export default function Hero () {
         <a
           className="inline-flex items-center gap-2 bg-[#C5A572] hover:bg-[#a88a4a] text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
 
-          href="#membership"
+          href={hasActiveSubscription ? "#schedule":"#membership" }
         >
-          Sign Up
+          {hasActiveSubscription ? 'Book A Class' : 'Sign Up'}
+          
           <ArrowRight size={20} />
         </a>
       </div>
