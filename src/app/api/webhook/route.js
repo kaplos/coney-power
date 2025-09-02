@@ -68,13 +68,8 @@ export async function POST(request) {
       return await addToAirtable(event);
     } else if (event.type === "customer.subscription.deleted") {
       return await editAirtable(event);
-<<<<<<< Updated upstream
-    }else {
-      // ❗️ Catch-all response for unhandled event types
-=======
     } else {
       console.log('Unhandled event type:', event.type);
->>>>>>> Stashed changes
       return new Response("Unhandled event type", { status: 200 });
     }
   } catch (error) {
@@ -117,38 +112,6 @@ async function addToAirtable(event) {
       console.error("Error creating payment record:", err);
       throw err;
     }
-<<<<<<< Updated upstream
-    console.log(event);
-    // console.log('rest' ,rest);
-    const {
-      customer_details = {},
-      metadata = {},
-      subscription = "",
-      payment_intent = "",
-    } = rest.data.object;
-    console.log(JSON.stringify(customer_details, null, 2));
-
-    // Example: Signature verification (optional)
-    // const signature = headers.get("stripe-signature");
-
-    // You can parse JSON if needed
-    // const jsonBody = JSON.parse(body);
-    base("tblefuz5SkZIDP0sl").create(
-      {
-        fldki6xSYyXXMvI24:customer_details.email, // Customer Email
-        fld6cwjzBKEuYgD55: customer_details.name, // Customer Name
-        fldygM7z866FZ1FBq: [metadata.product], // class id from airtable
-        fldKgeZdfw9HPYXG0: subscription || payment_intent, //PaymentID from stripe
-      },
-      function (err, record) {
-        if (err) {
-          console.error("Error creating record:", err);
-          return;
-        }
-        console.log("Record created:", record.getId());
-      }
-    );
-=======
   } else if (mode === "subscription") {
     console.log("Processing subscription mode");
     try {
@@ -184,7 +147,6 @@ async function addToAirtable(event) {
   } else {
     console.log("Unhandled mode:", mode);
   }
->>>>>>> Stashed changes
 
   return new Response("Webhook received", { status: 200 });
 }
