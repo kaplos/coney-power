@@ -1,13 +1,16 @@
 'use client'
-import { useState } from 'react';
+import { useState,useRef,useEffect } from 'react';
 import { LogIn, Menu, X, User} from 'lucide-react';
 import { useSession, signIn, signOut } from "next-auth/react";
-
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
+  const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {data: session} = useSession()
+    const dropdownRef = useRef(null);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -19,7 +22,16 @@ const Header = () => {
     { name: 'Gallery', href: '#gallery' },
     { name: 'Contact', href: '#contact' }
   ];
-
+ useEffect(() => {
+    if (!isDropdownOpen) return;
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isDropdownOpen]);
   return (
     <header className="sticky top-0 z-50 bg-black shadow-lg border-b border-gray-100">
       <nav className="container mx-auto px-4 py-4">
@@ -54,7 +66,7 @@ const Header = () => {
                   </span>
                   {/* Dropdown positioned directly under the button */}
                   {isDropdownOpen && (
-                    <div className="absolute left-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+                    <div ref={dropdownRef} className="absolute left-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
                       <div>
                         <label className="block px-4 pt-2 pb-1 text-xs text-black font-semibold cursor-default">
                           Membership:
@@ -76,7 +88,7 @@ const Header = () => {
                       </div>
                       <button
                         onClick={() => signOut()}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                       >
                         Log Out
                       </button>
@@ -84,10 +96,10 @@ const Header = () => {
                   )}
                 </div>
               ) : (
-                <div onClick={() => signIn()} className="flex items-center gap-2 cursor-pointer">
-                  <button className="rounded-md text-gray-700 bg-[#C5A572]">
+                 <div onClick={() => router.push('/signup')} className="flex items-center gap-2 cursor-pointer">
+                  <button className="p-2 rounded-md text-gray-700 bg-[#C5A572] cursor-pointer">
                     <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
-                      Sign In
+                      Sign In/Sign Up
                     </span>
                   </button>
                 </div>
@@ -130,10 +142,10 @@ const Header = () => {
                     </button>
                   </div>
                 ) : (
-                  <div onClick={() => {signIn(); }} className="flex items-center gap-2 cursor-pointer">
+                  <div onClick={() =>router.push('/signup')} className="flex items-center gap-2 cursor-pointer">
                     <button className="rounded-md text-gray-700 p-2 bg-[#C5A572]">
                       <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
-                        Sign In
+                        Sign In/Sign Up
                       </span>
                     </button>
                   </div>
