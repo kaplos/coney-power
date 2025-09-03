@@ -1,28 +1,9 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import HomeContent from "@/components/HomeContent";
 
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Schedule from '@/components/Schedule';
-import Membership from '@/components/Membership';
-import Gallery from '@/components/Gallery';
-import Footer from '@/components/Footer';
-import FreeTrial from '@/components/FreeTrial';
+export default async function Page() {
+  const session = await getServerSession(authOptions);
 
-export default function Home(){
-
-
-return (
-    <div className="min-h-screen  bg-white">
-      <Header />
-      <main>
-        <Hero />
-        <Gallery />
-        <FreeTrial />
-        <Schedule />
-        <Membership />
-        {/* <hr className="border-t border-gray-800 space-x-6"/> */}
-      </main>
-      <Footer />
-    </div>
-  );
-};
-
+  return <HomeContent session={session} />;
+}

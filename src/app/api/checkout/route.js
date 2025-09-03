@@ -1,19 +1,21 @@
 import Stripe from 'stripe';
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 export async function POST(request) {
+  const userSession = await getServerSession(authOptions);
   const { searchParams } = new URL(request.url);
   console.log('Received checkout request with params:', Object.fromEntries(searchParams.entries()));
   const item = searchParams.get('item');
   // const metaData = searchParams.get('metaData') || ''; // Default metadata if not provided
   const objectMap = {
     // Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' ,metaData: "recXjTTaQ0P0TIUUV" },
-    Standard: { price: 'price_1Rw6zARUl1PVsffznBgfCgK1', mode: 'subscription' ,metaData: "recmhCHMBAsIVzwjf" },
-    Unlimited: { price: 'price_1Rw6x9RUl1PVsffzOtg7jd5p', mode: 'subscription' ,metaData: "recvQgIdOQQIK4W46" },
+    Standard: { price: 'price_1Rw6zARUl1PVsffznBgfCgK1', mode: 'subscription' ,metaData: "recsnVL6w3dnG5nP9" },
+    Unlimited: { price: 'price_1Rw6x9RUl1PVsffzOtg7jd5p', mode: 'subscription' ,metaData: "rec1qEpy3ruJzF1SK" },
     'Single Kids Class': { price: 'price_1S1XwGRUl1PVsffzkKnJOIRr', mode: 'payment' ,metaData: "recguITtonVGfoAfn" },
     'Single Class': { price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'payment', metaData: "recfs32A6UrFiAOCY" },
-    Kids: { price: 'price_1S1XzYRUl1PVsffzcSl5Td5P', mode: 'subscription' ,metaData: "recbXjTTaQ0P0TIUUV" },
+    Kids: { price: 'price_1S1XzYRUl1PVsffzcSl5Td5P', mode: 'subscription' ,metaData: "recrCAxtf8uzMPXgU" },
     default: {  price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'payment' },
   };
   
@@ -45,10 +47,15 @@ export async function POST(request) {
         {
           price: price,
           quantity:1
-        }
+        },
+
       ],
+      customer_email: userSession?.user?.email || undefined,
       metadata:{
-        product: metaData
+        product: metaData,
+        // user: userSession?.user?.email || 'guest',
+        userId: userSession?.user?.id || '0',
+        
       },
       mode,
       success_url: `${request.headers.get('origin')}/success?item=${item}&metaData=${metaData}`,

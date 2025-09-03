@@ -1,10 +1,13 @@
 'use client'
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { LogIn, Menu, X, User} from 'lucide-react';
+import { useSession, signIn, signOut } from "next-auth/react";
+
 
 const Header = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const {data: session} = useSession()
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -37,6 +40,59 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
+            
+            <div className="relative">
+              {session ? (
+                <div
+                  className="flex items-center rounded-md bg-[#C5A572] cursor-pointer relative"
+                  onClick={() => setIsDropdownOpen((v) => !v)}
+                >
+                  {/* <img src={session.user.image} alt="User Avatar" className="h-8 w-8 rounded-full"/> */}
+                  <User className="text-white rounded-md" />
+                  <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                    {session.user.name}
+                  </span>
+                  {/* Dropdown positioned directly under the button */}
+                  {isDropdownOpen && (
+                    <div className="absolute left-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+                      <div>
+                        <label className="block px-4 pt-2 pb-1 text-xs text-black font-semibold cursor-default">
+                          Membership:
+                        </label>
+                        <div className="flex items-center px-4 pb-2 border-b border-gray-200">
+                          <span
+                            className={`h-3 w-3 rounded-full inline-block ${
+                              session.user.subscriptionStatus === 'Active'
+                                ? 'bg-green-500'
+                                : 'bg-red-500'
+                            }`}
+                            title={session.user.subscriptionStatus === 'Active' ? 'Active' : 'Not Active'}
+                          ></span>
+                          <span className="ml-2 text-sm text-gray-700 cursor-default">
+                            {session.user.membershipName}
+                          </span>
+                        </div>
+                       
+                      </div>
+                      <button
+                        onClick={() => signOut()}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Log Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div onClick={() => signIn()} className="flex items-center gap-2 cursor-pointer">
+                  <button className="rounded-md text-gray-700 bg-[#C5A572]">
+                    <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                      Sign In
+                    </span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -63,8 +119,26 @@ const Header = () => {
                 >
                   {item.name}
                 </a>
+                
               ))}
-            </div>
+                {session ? (
+                  <div onClick={() => {signOut(); }} className="flex items-center gap-2 cursor-pointer">
+                    <button className="rounded-md text-gray-700 p-2 bg-[#C5A572]">
+                      <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                        Log Out
+                      </span>
+                    </button>
+                  </div>
+                ) : (
+                  <div onClick={() => {signIn(); }} className="flex items-center gap-2 cursor-pointer">
+                    <button className="rounded-md text-gray-700 p-2 bg-[#C5A572]">
+                      <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
+                        Sign In
+                      </span>
+                    </button>
+                  </div>
+                )}
+              </div>
           </div>
         )}
       </nav>

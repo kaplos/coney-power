@@ -156,7 +156,7 @@ const Membership = () => {
                 ))}
               </ul>
               
-              <CheckoutButton item={plan.name} metaData={plan.id||plan.name} popular={plan.popular}/>
+              <CheckoutButton item={plan.name} metaData={plan.id||plan.name} popular={plan.popular} type={'membership'}/>
             </div>
           ))}
         </div>
