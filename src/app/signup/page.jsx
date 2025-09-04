@@ -150,7 +150,7 @@ export default function AuthPage() {
         <button
           type="button"
           onClick={() => signIn("google")}
-          className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-white rounded-md shadow-sm text-base font-semibold text-white bg-black mb-6"
+          className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-white rounded-md shadow-sm text-base font-semibold bg-[#C5A572] text-white mb-6"
         >
           {/* <svg className="w-5 h-5" viewBox="0 0 48 48"> ... </svg> */}
           {mode === "signup" ? "Sign up with Google" : "Sign in with Google"}

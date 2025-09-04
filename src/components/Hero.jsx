@@ -22,8 +22,8 @@ export default function Hero () {
 >
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 flex flex-col items-center justify-center text-center space-y-4 w-full">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-          Train Hard, <span className="text-[#C5A572]"> Live fully</span>
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight text-white">
+          Train Hard, <span className="text-white"> Live fully</span>
         </h1>
         <p className="text-lg text-gray-200">
           Classes for every body.

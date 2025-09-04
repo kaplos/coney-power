@@ -110,9 +110,7 @@ CredentialsProvider({
           return true;   //if the email exists in the User collection, email them a magic login link
         }
       }
-      if(account.provider === 'credentials'){
-        return true;
-      }
+      return true 
     },
     async session({ session }) {
       try {

@@ -12,7 +12,7 @@ const images = [
 
 export default function MovingGallery({ speedSeconds = 30 }) {
   return (
-    <div className="w-full overflow-hidden">
+    <div id='gallery' className="w-full overflow-hidden">
       {/* One track with duplicated images for a seamless loop */}
       <div className="marquee" style={{ animationDuration: `${speedSeconds}s` }}>
         {[...images, ...images].map((src, i) => (

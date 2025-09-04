@@ -22,7 +22,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="text-2xl font-bold text-red-700">Coney Power</div>
-            <p className="text-gray-300 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Empowering you to achieve your fitness goals through expert guidance and
               state-of-the-art equipment.
             </p>
@@ -33,7 +33,7 @@ const Footer = () => {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="text-gray-400 hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-lg p-1"
+                    className="text-white hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-lg p-1"
                     aria-label={social.ariaLabel}
                   >
                     <IconComponent size={24} className='text-red-700' />
@@ -51,7 +51,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-sm"
+                    className="text-white hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-sm"
                   >
                     {link.name}
                   </a>
@@ -64,15 +64,15 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-gray-300">
+              <div className="flex items-center gap-3 text-white">
                 <MapPin size={18} className="text-red-700" />
                 <span>2350 Coney Island Avenue, Brooklyn NY, 11223</span>
               </div>
-              {/* <div className="flex items-center gap-3 text-gray-300">
+              {/* <div className="flex items-center gap-3 text-white">
                 <Phone size={18} className="text-blue-400" />
                 <span>(555) 123-GYMFIT</span>
               </div> */}
-              <div className="flex items-center gap-3 text-gray-300">
+              <div className="flex items-center gap-3 text-white">
                 <Mail size={18} className="text-red-700" />
                 <span>support@coneypower.com</span>
               </div>
@@ -81,26 +81,26 @@ const Footer = () => {
 
           {/* Hours */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Hours</h3>
-            <div className="space-y-2 text-gray-300">
+            <h3 className="text-lg font-semibold mb-4 text-white">Hours</h3>
+            <div className="space-y-2 text-white ">
               <div className="flex justify-between">
                 {/* <span>5:00 AM - 11:00 PM</span> */}
               </div>
-              <div className="flex justify-between">
+              <div className="flex text-white justify-between">
                 <span>Mon - Thu:</span>
                 <span>6:00 AM - 10:00 PM</span>
               </div> 
-               <div className="flex justify-between">
+               <div className="flex text-white justify-between">
                 <span>Friday:</span>
                 <span>7:00 AM - 3:00 PM</span>
               </div>
-               <div className="flex justify-between">
+               <div className="flex text-white justify-between">
                 <span>Saturday:</span>
                 <span>Closed</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex text-white justify-between">
                 <span>Sunday:</span>
-                <span>8:00 AM - 1:00 PM</span>
+                <span>8:00 AM - 10:00 PM</span>
               </div>
             </div>
           </div>
@@ -108,14 +108,14 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
+          <p className="text-white text-sm">
             © 2025 Coney Power. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
+            <a href="#" className="text-white hover:text-white text-sm transition-colors duration-200">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
+            <a href="#" className="text-white hover:text-white text-sm transition-colors duration-200">
               Terms of Service
             </a>
           </div>

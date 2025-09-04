@@ -46,7 +46,7 @@ export default function WeeklySchedule() {
           <h2 className="text-2xl md:text-3xl font-bold text-red-700">
             Weekly Class Schedule
           </h2>
-          <p className="text-base text-gray-500 max-w-xl mx-auto ">
+          <p className="text-base text-white max-w-xl mx-auto ">
             Plan your perfect workout week with our diverse class offerings.
           </p>
         </div>
