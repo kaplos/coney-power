@@ -1,0 +1,11 @@
+const { defineConfig } = require('@playwright/test');
+
+module.exports = defineConfig({
+  testDir: 'tests',
+  use: {
+    browserName: 'chromium',
+    headless: true,
+    enable: true
+  },
+  reporter: [['list'], ['enable', { option: 'value' }]]
+});
