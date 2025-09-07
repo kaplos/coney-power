@@ -1,5 +1,4 @@
 const Airtable = require('airtable');
-const fetch = require('node-fetch'); // npm i node-fetch@2
 
 exports.handler = async function (event, context) {
   console.log('update-class-times triggered');
