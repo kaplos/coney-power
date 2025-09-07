@@ -10,7 +10,7 @@ export default function Success({}) {
   }, []);
 
     return (
-    <div className=" bg-white dark:bg-gray-900 min-h-screen bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center px-4">
+    <div className=" bg-black min-h-screen bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center bg-white rounded-2xl shadow-xl p-8">
         <div className="mb-6">
           <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
@@ -37,7 +37,7 @@ export default function Success({}) {
           
           <Link 
             href="/" 
-            className="inline-block w-full bg-primary text-white dark:text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+            className="inline-block w-full bg-primary text-[#C5A572] font-semibold py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
           >
             Return to Home
           </Link>

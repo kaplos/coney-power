@@ -23,6 +23,7 @@ export async function POST(request) {
   price = null,
   mode = null,
   metaData = searchParams.get('metaData'),
+  category = searchParams.get('category'),
 } = objectMap[item] ?? objectMap.default;
   console.log('Item:', item, 'Price:', price, 'Mode:', mode);
   
@@ -55,6 +56,7 @@ export async function POST(request) {
         product: metaData,
         // user: userSession?.user?.email || 'guest',
         userId: userSession?.user?.id || '0',
+        category: category
         
       },
       mode,

@@ -3,9 +3,22 @@ import { useState } from 'react';
 import { Check, Star } from 'lucide-react';
 import CheckoutButton from './CheckoutButton';
 const Membership = () => {
-  const [classType, setClassType] = useState('mens');
+  const [classType, setClassType] = useState('Mens');
+  const catergory = [
+    'Mens',
+    'Ladies',
+    '6-12',
+    '13-17'
+  ]
+  const displayNames = {
+  Mens: "Men",
+  Ladies: "Ladies",
+  "6-12": "Kids (6-12)",
+  "13-17": "Teens (13-17)"
+  // Add more if you add more categories
+};
   const plans = {
-    ladies: [
+    Ladies: [
     // {
     //   name: 'Basic',
     //   price: 29,
@@ -50,7 +63,7 @@ const Membership = () => {
       ],
       popular: false,
     }  ],
-    mens: [
+    Mens: [
     // {
     //   name: 'Basic',
     //   price: 29,
@@ -167,20 +180,25 @@ const Membership = () => {
         </div>
         <div className="flex justify-center mb-8">
   <div className="inline-flex rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
-    <button
+    {
+      catergory.map((cat,index) => 
+        <button
+          key={index}
+          className={`px-6 py-2 font-semibold transition-colors duration-200 focus:outline-none ${
+            classType === cat
+              ? 'bg-[#C5A572] text-white'
+              : 'bg-black text-white'
+          }`}
+          onClick={() => setClassType(cat)}
+          type="button"
+        >
+          {displayNames[cat]}
+        </button>
+      )
+    }
+    {/* <button
       className={`px-6 py-2 font-semibold transition-colors duration-200 focus:outline-none ${
-        classType === 'mens'
-          ? 'bg-[#C5A572] text-white'
-          : 'bg-black text-white'
-      }`}
-      onClick={() => setClassType('mens')}
-      type="button"
-    >
-      Men
-    </button>
-    <button
-      className={`px-6 py-2 font-semibold transition-colors duration-200 focus:outline-none ${
-        classType === 'ladies'
+        classType === 'Ladies'
           ? 'bg-[#C5A572] text-white'
           : 'bg-black text-white'
       }`}
@@ -210,7 +228,7 @@ const Membership = () => {
       type="button"
     >
       Teens (13-17)
-    </button>
+    </button> */}
   </div>
 </div>
         <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
@@ -245,7 +263,7 @@ const Membership = () => {
                 ))}
               </ul>
               
-              <CheckoutButton item={plan.name} metaData={plan.id||plan.name} popular={plan.popular} type={'membership'}/>
+              <CheckoutButton item={plan.name} category={classType} metaData={plan.id || plan.name} popular={plan.popular} type={'membership'}/>
             </div>
           ))}
         </div>

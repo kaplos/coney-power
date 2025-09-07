@@ -11,7 +11,7 @@ export async function POST(request) {
     maxRecords: 1,
   }).firstPage();
 //   console.log('Class details:', classDetails[0]?.fields);
-  const classType = classDetails[0]?.fields?.['Class Category']|| 'Adults';
+  const classType = classDetails[0]?.fields?.['Class Category'];
   // 1. Fetch member record to get subscription type
   const userRecords = await base('tblEuSd8AfoXS8rau').select({
     filterByFormula: `{Member Id} = '${userSession.user.id}'`,
@@ -38,8 +38,7 @@ export async function POST(request) {
 today.setHours(0, 0, 0, 0);
 const tomorrow = new Date(today);
 tomorrow.setDate(today.getDate() + 1);
-console.log('Today:', today.toISOString());
-console.log('Tomorrow:', tomorrow.toISOString());   
+
 const existingBookings = await base('tblefuz5SkZIDP0sl').select({
   filterByFormula: `AND(
     FIND('${userSession.user.id}', ARRAYJOIN({Members}, ',')),
@@ -50,7 +49,7 @@ const existingBookings = await base('tblefuz5SkZIDP0sl').select({
   maxRecords: 1,
 }).firstPage();
 
-  console.log('Existing bookings:', existingBookings[0]?.fields);
+  // console.log('Existing bookings:', existingBookings[0]?.fields);
 
   if (existingBookings.length > 0) {
     return new Response(JSON.stringify({ Message: "You have already booked this class.",type:'error' }), {
@@ -79,8 +78,8 @@ const existingBookings = await base('tblefuz5SkZIDP0sl').select({
   }
 // ...existing code...
 if (!sub || sub === 'Not Active') {
-    const creditField = classType === 'Adults' ? 'AdultClassCredit' : 'KidsClassCredit';
-    const currentCredits = classType === 'Adults' ? adultClassCredits : kidsClassCredits;
+    const creditField = classType === 'Mens' || classType === 'Ladies' ? 'AdultClassCredit' : 'KidsClassCredit';
+    const currentCredits = classType === 'Mens' || classType === 'Ladies' ? adultClassCredits : kidsClassCredits;
   if (kidsClassCredits <= 0 && adultClassCredits <= 0 || currentCredits <= 0) {
     return new Response(JSON.stringify({ Message: "You need an active subscription or available one-time class credits to book a class.", type: 'error' }), {
       status: 403,

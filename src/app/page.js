@@ -7,3 +7,5 @@ export default async function Page() {
 
   return <HomeContent session={session} />;
 }
+//TODO add the checkin backend page for the qr code
+//TODO add a check on the checkin page to make sure the waiver is filled out

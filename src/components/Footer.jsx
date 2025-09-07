@@ -66,7 +66,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-white">
                 <MapPin size={18} className="text-red-700" />
-                <span>2350 Coney Island Avenue, Brooklyn NY, 11223</span>
+                <span>2350 Coney Island Avenue Brooklyn NY, 11223</span>
               </div>
               {/* <div className="flex items-center gap-3 text-white">
                 <Phone size={18} className="text-blue-400" />
@@ -107,10 +107,21 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white text-sm">
-            © 2025 Coney Power. All rights reserved.
-          </p>
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-evenly items-center">
+          <p className="text-white text-sm">© {new Date().getFullYear()} Coney Power. All rights reserved.</p>
+
+          <a
+            href="https://candminc.store"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-3 text-gray-300 hover:text-white transition-all"
+            aria-label="Candm inc"
+          >
+          <div className="text-sm leading-tight">
+              <div className="text-xs text-gray-400">Site by:</div>
+              <div className="underline">Candm inc</div>
+            </div>
+          </a>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-white hover:text-white text-sm transition-colors duration-200">
               Privacy Policy

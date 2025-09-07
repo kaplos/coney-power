@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-
+const { useSession } = require("next-auth/react");
+import {useSearchParams} from 'next/navigation';
 function validatePassword(password) {
   const minLength = password.length >= 8;
   const hasDigit = /\d/.test(password);
@@ -20,7 +21,27 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+const { data: session } = useSession();
+  const searchParams = useSearchParams();
 
+  useEffect(() => {
+    if (session?.user?.email && searchParams.get('checkout') === '1') {
+      // Optionally: remove the query params after use
+      const item = searchParams.get('item');
+      const metaData = searchParams.get('metaData');
+      const category = searchParams.get('category');
+      // Call your checkout logic here, e.g.:
+      fetch(`/api/checkout?item=${item}&metaData=${metaData}&category=${category}`, {
+        method: 'POST',
+      })
+        .then(res => res.json())
+        .then(data => {
+          window.location.href = data.url;
+        });
+    }
+  }, [session, searchParams]);
+
+  
   // Enhanced handleChange for instant password validation
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,32 +112,48 @@ export default function AuthPage() {
       return;
     }
 
-    const res = await fetch("/api/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: form.email, password: form.password, name: form.name }),
-    });
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email, password: form.password, name: form.name }),
+      });
 
-    const data = await res.json();
-    setLoading(false);
+      const data = await res.json();
+      setLoading(false);
 
-    if (res.ok) {
-  setSuccess(true);
-  // Instantly sign in after successful signup
-  const signInRes = await signIn("credentials", {
-    redirect: false,
-    email: form.email,
-    password: form.password,
-  });
-  if (signInRes.ok) {
-    router.push("/"); // redirect to home or your desired page
-  } else {
-    setError("Account created, but automatic sign in failed. Please sign in manually.");
-  }
-} else {
-  setError(data.error || "Something went wrong.");
-}
+      if (!res.ok) {
+        setError(data.error || "Something went wrong.");
+        return;
+      }
+
+      setSuccess(true);
+
+      // Instantly sign in after successful signup
+      const signInRes = await signIn("credentials", {
+        redirect: false,
+        email: form.email,
+        password: form.password,
+      });
+
+      // signIn can return undefined if a redirect occurred — handle that safely
+      if (typeof signInRes === "undefined") {
+        // NextAuth performed a redirect; nothing else to do here
+        return;
+      }
+
+      if (signInRes?.ok) {
+        router.push("/"); // redirect to home or your desired page
+      } else {
+        setError(signInRes?.error || "Account created, but automatic sign in failed. Please sign in manually.");
+      }
+    } catch (err) {
+      setLoading(false);
+      setError("Unexpected error. Try again.");
+      console.error("handleSignup error:", err);
+    }
   };
+  // ...existing code...
 
   // Signin submit
   const handleSignin = async (e) => {
@@ -125,19 +162,39 @@ export default function AuthPage() {
     setError("");
     setSuccess(false);
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: form.email,
-      password: form.password,
-    });
+    const callbackUrl = searchParams.get('callbackUrl') || (searchParams.get('checkout') === '1'
+      ? `/signup?${searchParams.toString()}`
+      : '/');
 
-    setLoading(false);
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: form.email,
+        password: form.password,
+        callbackUrl,
+      });
 
-    if (res.ok) {
+      setLoading(false);
+      console.log('signIn response', res);
+
+      // signIn may return undefined if NextAuth performed a full redirect
+      if (typeof res === "undefined") {
+        return;
+      }
+
+      if (res?.error) {
+        setError(res.error || "Invalid email or password.");
+        return;
+      }
+
+      // success -> redirect to returned url or default
+      const dest = res?.url || callbackUrl || '/';
       setSuccess(true);
-      setTimeout(() => router.push("/"), 1000);
-    } else {
-      setError("Invalid email or password.");
+      router.push(dest);
+    } catch (err) {
+      setLoading(false);
+      setError("Unexpected error during sign in.");
+      console.error("handleSignin error:", err);
     }
   };
 
@@ -308,7 +365,7 @@ export default function AuthPage() {
             <>
               Already have an account?{" "}
               <button
-                className="text-[#C5A572] hover:underline"
+                className="text-[#C5A572] hover:underline cursor-pointer"
                 onClick={() => {
                   setMode("signin");
                   setStep(1);
@@ -324,7 +381,7 @@ export default function AuthPage() {
             <>
               Don't have an account?{" "}
               <button
-                className="text-[#C5A572] hover:underline"
+                className="text-[#C5A572] hover:underline cursor-pointer"
                 onClick={() => {
                   setMode("signup");
                   setStep(1);
@@ -338,6 +395,11 @@ export default function AuthPage() {
             </>
           )}
         </div>
+        {/* <div className="mt-8 text-center text-sm text-gray-400">
+         
+          <a className='underline cursor-pointer'>Forgot Password</a>
+        </div> */}
+
       </div>
     </div>
   );

@@ -1,12 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { format, parseISO } from "date-fns";
 import CheckoutButton from "./CheckoutButton";
-export default function ScheduleCard({ classInfo }) {
+import { formatInTimeZone } from "date-fns-tz";
+
+export default function ScheduleCard({ classInfo,bookedClasses,setBookedClasses }) {
   const [showDescription, setShowDescription] = useState(false);
+  const isClassBooked = Array.isArray(bookedClasses) && bookedClasses.some((c) => {
+    const cid = c?.fields?.['Class ID'];
+    const classIdMatch = Array.isArray(cid) ? String(cid[0]) === String(classInfo.id) : false;
+    const bookingIdMatch = String(c.id) === String(classInfo.id);
+    return classIdMatch || bookingIdMatch;
+  });
+  
+  
+
 
   return (
-    <div className="bg-black shadow rounded-lg p-2 mb-2 flex flex-col gap-1 w-full max-w-[170px] mx-auto sm:max-w-[180px]">
+    <div key={classInfo.id} className="bg-black shadow rounded-lg p-2 mb-2 flex flex-col gap-1 w-full max-w-[170px] mx-auto sm:max-w-[180px]">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-[#C5A572] truncate">
           {classInfo["Class Name"]}
@@ -18,12 +29,20 @@ export default function ScheduleCard({ classInfo }) {
         </span>
       </div>
       <div className="flex items-center justify-between text-xs text-white">
-        <span>{format(parseISO(classInfo["Class Time"]), "h:mm a")}</span>
+        <span>{formatInTimeZone(
+            classInfo["Class Time"],
+            "UTC",
+            "h:mm a"
+          )}</span>
         <span>-</span>
-        <span>{format(parseISO(classInfo["End Time"]), "h:mm a")}</span>
+        <span>{formatInTimeZone(
+            classInfo["End Time"],
+            "UTC",
+            "h:mm a"
+          )}</span>
       </div>
       <button
-        className="text-xs text-red-700 underline text-left"
+        className="text-xs text-red-700 font-bold underline text-left"
         onClick={() => setShowDescription((v) => !v)}
         type="button"
       >
@@ -42,8 +61,10 @@ export default function ScheduleCard({ classInfo }) {
       <CheckoutButton
         disabled={classInfo["Available Spots"] <= 0}
         item={classInfo["Class Name"]}
-        metaData={classInfo.id || classInfo["Class Name"]}
+        metaData={classInfo.id}
+        isBooked={isClassBooked}
         popular={false}
+        onBooked={(classInfo)=> setBookedClasses( [...bookedClasses,classInfo])}
       />
     </div>
   );

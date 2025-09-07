@@ -7,12 +7,16 @@ import Membership from '@/components/Membership';
 import Gallery from '@/components/Gallery';
 import Footer from '@/components/Footer';
 import { MessageProvider } from "./MessageProvider";
+import QrCodeHolder from "./QrCodeHolder";
 
 export default function HomeContent({ session }) {
   return (
     <MessageProvider>
       <SessionProvider session={session}>
-        <Home />
+         <div className="min-h-screen bg-black">
+          <QrCodeHolder memberId={session?.user?.memberId} />
+          <Home />
+        </div>
       </SessionProvider>
     </MessageProvider>
   );
@@ -27,15 +31,11 @@ function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-black">
-      <Header />
       <main>
         <Hero />
         <Gallery />
         <Schedule />
         {!hasActiveSubscription && <Membership />}
       </main>
-      <Footer />
-    </div>
   );
 }

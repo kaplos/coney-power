@@ -56,9 +56,9 @@ export async function POST(request) {
   }
   
   // Store the webhook event AFTER it's been constructed
-  if(isDev){
-    await storeWebhookEvent(event);
-  }
+  // if(isDev){
+  //   await storeWebhookEvent(event);
+  // }
   
   try {
     console.log('Received event:', event.type, 'Event ID:', event.id);
@@ -106,6 +106,7 @@ async function addToAirtable(event) {
       // These IDs should match your checkout route's metaData for each class type
       const singleKidsClassId = "recguITtonVGfoAfn";
       const singleAdultClassId = "recfs32A6UrFiAOCY";
+
       let creditField = null;
 
       if (metadata.product === singleKidsClassId) {
@@ -135,6 +136,7 @@ async function addToAirtable(event) {
             id: userRecord.id,
             fields: {
               [creditField]: currentCredits + 1,
+              'Class Category': metadata.category
             },
           },
         ]);
@@ -142,10 +144,10 @@ async function addToAirtable(event) {
       }
 
       // Optionally, store the payment record as before
-      const record = await base("tblefuz5SkZIDP0sl").create({
-        "Members": [metadata.userId],
-        fldKgeZdfw9HPYXG0: payment_intent,
-      });
+      // const record = await base("tblefuz5SkZIDP0sl").create({
+      //   "Members": [metadata.userId],
+      //   fldKgeZdfw9HPYXG0: payment_intent,
+      // });
       console.log("Payment record created:", record.getId());
     } catch (err) {
       console.error("Error creating payment record or updating credits:", err);
@@ -173,8 +175,9 @@ async function addToAirtable(event) {
           'Membership Type': [metadata.product],
           'Subscription Status': "Active",
           'Subscription Start Date': new Date().toISOString().split('T')[0],
-          'Subscription End Date': "",
+          // 'Subscription End Date': "",
           'Subscription Id': subscription,
+          'Class Category': metadata.category
         }
       }]);
       

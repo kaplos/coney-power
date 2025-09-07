@@ -26,91 +26,86 @@ CredentialsProvider({
     email: { label: "Email", type: "email" },
     password: { label: "Password", type: "password" }
   },
- async authorize(credentials) {
-  const records = await base('Members').select({
-    filterByFormula: `{Email} = '${credentials.email}'`,
-    maxRecords: 1,
-  }).firstPage();
+  async authorize(credentials) {
+    try {
+      if (!credentials?.email || !credentials?.password) return null;
 
-  if (records.length === 0) {
-    // console.log("No user found for email:", credentials.email);
-    return null;
+      const records = await base('Members').select({
+        filterByFormula: `{Email} = '${credentials.email}'`,
+        maxRecords: 1,
+      }).firstPage();
+      if (records.length === 0) return null;
+
+      const user = records[0].fields;
+      if (!user.HashedPassword) return null;
+
+      const isValid = await bcrypt.compare(credentials.password, user.HashedPassword);
+      console.log('Password is valid:', isValid);
+      if (!isValid) return null;
+
+      // Ensure id is always a string
+      return {
+        id: String(user['Member ID'] || user['Email']),
+        email: user['Email'],
+        name: user['Name'] || '',
+      };
+    } catch (err) {
+      console.error('Authorize error:', err);
+      return null;
+    }
   }
-
-  const user = records[0].fields;
-  // console.log("User found:", user);
-
-  if (!user.HashedPassword) {
-    // console.log("No hashed password for user:", user.Email);
-    return null;
-  }
-
-  const isValid = await bcrypt.compare(credentials.password, user.HashedPassword);
-  // console.log("Password valid:", isValid);
-  if (!isValid) {
-    // console.log("Invalid password for user:", user.Email);
-    return null;
-  }
-//   console.log("Returning user object:", {
-//   id: user['Member ID'] || user.Email,
-//   email: user['Email'],
-//   name: user['Name'],
-// });
-
-  return {
-    id: user['Member ID'] ,
-    email: user['Email'],
-    name: user['Name'],
-  };
-}
     }),
     
   ],
   adapter: undefined,
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async signIn({ user,account,email}) {
-      if(account.provider === "google"){
+   async signIn({ user, account, email }) {
+    try {
+      console.log('signIn callback', account?.provider, user?.email || email);
 
-      try {
-        const email = user.email;
+      // Google provider: create member if not exists, then allow
+      if (account?.provider === 'google') {
+        const userEmail = user?.email || email;
         const records = await base('Members').select({
-          filterByFormula: `{Email} = '${email}'`,
+          filterByFormula: `{Email} = '${userEmail}'`,
           maxRecords: 1,
         }).firstPage();
 
         if (records.length === 0) {
-          await base('Members').create([
-            {
-              fields: {
-                Email: user.email,
-                Name: user.name,
-                // Optionally set default subscription fields here
-                ['Membership Type']: "none",
-                ['Subscription Status']: ["Not Active"],
-              },
+          await base('Members').create([{
+            fields: {
+              Email: userEmail,
+              Name: user?.name || '',
+              ['Membership Type']: "none",
+              ['Subscription Status']: ["Not Active"],
             },
-          ]);
+          }]);
+        }
+        return true; // allow sign in
+      }
+
+      // Credentials provider uses 'credentials' as provider id
+      if (account?.provider === 'credentials') {
+        const userEmail = user?.email || email;
+        const records = await base('Members').select({
+          filterByFormula: `{Email} = '${userEmail}'`,
+          maxRecords: 1,
+        }).firstPage();
+        if (records.length === 0) {
+          console.warn('signIn: credentials user not in Members:', userEmail);
+          return false;
         }
         return true;
-      } catch (err) {
-        console.error('Airtable error:', err);
-        return false;
-      }
       }
 
-      if(account.provider === "email"){
-        const records = await base('Members').select({
-          filterByFormula: `{Email} = '${email}'`,
-          maxRecords: 1,
-        }).firstPage();
-        if (records.length === 0) {
-          return "/register";  //if the email does not exist in the User collection, do not send a magic login link
-        } else {
-          return true;   //if the email exists in the User collection, email them a magic login link
-        }
-      }
-      return true 
+      return true;
+    } catch (err) {
+      console.error('signIn callback error:', err);
+      return false;
+    }
+  
+
     },
     async session({ session }) {
       try {
@@ -125,11 +120,13 @@ CredentialsProvider({
           // console.log('User fields from Airtable:', userFields);
           // Attach subscription info to the session
           session.user.subscriptionType = userFields['Membership Type'] || null;
+          session.user.waiver = userFields['Waiver Signed']==='Signed' || false;
           session.user.subscriptionStatus = userFields['Subscription Status'] || null;
           session.user.adultClassCredit = userFields['AdultClassCredit'] || 0;
           session.user.kidsClassCredit = userFields['KidsClassCredit'] || 0;
           session.user.membershipName = userFields['Name (from Membership Type)'] ? userFields['Name (from Membership Type)'][0] : 'Not Subscribed';
           session.user.id = userFields['Member ID'] || 0;
+          session.user.classCategory = userFields['Class Category'];
 
         }
       } catch (err) {
@@ -137,6 +134,11 @@ CredentialsProvider({
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+    if (url.startsWith("/")) return `${baseUrl}${url}`;
+    if (url.startsWith(baseUrl)) return url;
+    return baseUrl;
+  }
   },
 };
 

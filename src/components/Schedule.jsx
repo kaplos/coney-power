@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { format, startOfWeek, addDays, isSameDay, parseISO, getHours } from 'date-fns';
+import { format, startOfWeek, addDays, isSameDay, parseISO } from 'date-fns';
+import { useSession } from 'next-auth/react';
 import ScheduleCard from './ScheduleCard';
 
 const fetchClasses = async () => {
@@ -10,17 +11,34 @@ const fetchClasses = async () => {
       throw new Error(`Error: ${res.status}`);
     }
     const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch classes:', error);
+    return [];
+  }
+};
+const fetchBookedClasses = async() =>{
+  try{
+    const res = await fetch('/api/bookedclasses')
+    if(!res.ok){
+      throw new Error(`Error:${res.status}`)
+    }
+    const data = await res.json()
+    // console.log('fetched class data : ' ,data)
     return data
   }catch (error) {
     console.error('Failed to fetch classes:', error);
     return [];
   }
-};
+
+}
+
 
 export default function WeeklySchedule() {
+  const { data: session } = useSession();
   const [classes, setClasses] = useState([]);
   const [weekDates, setWeekDates] = useState([]);
-
+  const [bookedClasses, setBookedClasses] = useState([]);
   useEffect(() => {
     const load = async () => {
       const data = await fetchClasses();
@@ -33,10 +51,21 @@ export default function WeeklySchedule() {
 
     load();
   }, []);
+useEffect(()=>{
+    const loadBookedClasses = async () => {
+      const data = await fetchBookedClasses()
+      setBookedClasses(data.bookings)
+    }
+    
+  if(session?.user?.id){
+    loadBookedClasses()
+  }
+      
+  },[])
 
-  // Only show hours that have at least one class
+  // Only show hours that have at least one class (using UTC hour)
   const hoursWithClasses = Array.from(
-    new Set(classes.map(cls => getHours(parseISO(cls['Class Time']))))
+    new Set(classes.map(cls => parseISO(cls['Class Time']).getUTCHours()))
   ).sort((a, b) => a - b);
 
   return (
@@ -55,33 +84,33 @@ export default function WeeklySchedule() {
           <table className="w-full bg-blue-500 rounded-lg overflow-hidden text-xs md:text-sm">
             <thead className="bg-[#C5A572] text-white">
               <tr>
-                <th className="py-2 px-2 text-left font-semibold">Time</th>
+                <th className="py-2 px-2 text-left font-semibold">Time (UTC)</th>
                 {weekDates.map((day, i) => (
-                  <th key={i} className=" px-1 py-1 text-center font-semibold min-w-20">
+                  <th key={i} className="px-1 py-1 text-center font-semibold min-w-20">
                     {format(day, 'EEE dd')}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {hoursWithClasses.map((hour, timeIndex) => (
-                <tr key={hour} className={ 'bg-black '}>
-                  <td className="py-2 px-2 font-semibold text-white  ">
-                    {format(new Date().setHours(hour, 0, 0, 0), 'h a')}
-                  </td>
+              {hoursWithClasses.map((hour) => (
+                <tr key={hour} className={'bg-black '}>
+                  <td className="py-2 px-2 font-semibold text-white">
+  {`${((hour + 11) % 12 + 1)}:00 ${hour < 12 ? 'AM' : 'PM'}`}
+</td>
                   {weekDates.map((day, i) => {
                     const matchingClass = classes.find((cls) => {
                       const start = parseISO(cls['Class Time']);
                       return (
                         isSameDay(start, day) &&
-                        getHours(start) === hour
+                        start.getUTCHours() === hour
                       );
                     });
 
                     return (
                       <td key={i} className="py-1 px-1 text-center last:border-r-0 align-top">
                         {matchingClass ? (
-                          <ScheduleCard classInfo={matchingClass} />
+                          <ScheduleCard classInfo={matchingClass} bookedClasses={bookedClasses} setBookedClasses={setBookedClasses} />
                         ) : null}
                       </td>
                     );
