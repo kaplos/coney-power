@@ -3,8 +3,9 @@
 import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-const { useSession } = require("next-auth/react");
+import { useSession } from "next-auth/react";
 import {useSearchParams} from 'next/navigation';
+
 function validatePassword(password) {
   const minLength = password.length >= 8;
   const hasDigit = /\d/.test(password);
@@ -21,7 +22,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-const { data: session } = useSession();
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
 
   useEffect(() => {
