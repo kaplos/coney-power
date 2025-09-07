@@ -28,48 +28,48 @@ exports.handler = async function (event, context) {
       };
     }
 
-    // const updates = records
-    //   .map((record) => {
-    //     const raw = record.fields['Class Time'];
-    //     if (!raw) return null;
+    const updates = records
+      .map((record) => {
+        const raw = record.fields['Class Time'];
+        if (!raw) return null;
 
-    //     const currentValue = Array.isArray(raw) ? raw[0] : raw;
-    //     const parsed = new Date(currentValue);
-    //     if (Number.isNaN(parsed.getTime())) {
-    //       console.warn(`Skipping record ${record.id} - invalid date:`, currentValue);
-    //       return null;
-    //     }
+        const currentValue = Array.isArray(raw) ? raw[0] : raw;
+        const parsed = new Date(currentValue);
+        if (Number.isNaN(parsed.getTime())) {
+          console.warn(`Skipping record ${record.id} - invalid date:`, currentValue);
+          return null;
+        }
 
-    //     const nextWeek = new Date(parsed.getTime());
-    //     nextWeek.setUTCDate(nextWeek.getUTCDate() + 7);
+        const nextWeek = new Date(parsed.getTime());
+        nextWeek.setUTCDate(nextWeek.getUTCDate() + 7);
 
-    //     return {
-    //       id: record.id,
-    //       fields: { 'Class Time': nextWeek.toISOString() },
-    //     };
-    //   })
-    //   .filter(Boolean);
+        return {
+          id: record.id,
+          fields: { 'Class Time': nextWeek.toISOString() },
+        };
+      })
+      .filter(Boolean);
 
-    // if (updates.length === 0) {
-    //   console.log('No valid updates prepared.');
-    //   return {
-    //     statusCode: 200,
-    //     body: JSON.stringify({ updated: 0, message: 'No valid class times to update' }),
-    //     headers: { 'Content-Type': 'application/json' },
-    //   };
-    // }
+    if (updates.length === 0) {
+      console.log('No valid updates prepared.');
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ updated: 0, message: 'No valid class times to update' }),
+        headers: { 'Content-Type': 'application/json' },
+      };
+    }
 
-    // let totalUpdated = 0;
-    // for (let i = 0; i < updates.length; i += 10) {
-    //   const batch = updates.slice(i, i + 10);
-    //   try {
-    //     const res = await base('tblCLBGeluENWFA24').update(batch);
-    //     totalUpdated += Array.isArray(res) ? res.length : 1;
-    //     console.log(`Batch updated ${Array.isArray(res) ? res.length : 1} records`);
-    //   } catch (batchErr) {
-    //     console.error('Error updating batch:', batchErr);
-    //   }
-    // }
+    let totalUpdated = 0;
+    for (let i = 0; i < updates.length; i += 10) {
+      const batch = updates.slice(i, i + 10);
+      try {
+        const res = await base('tblCLBGeluENWFA24').update(batch);
+        totalUpdated += Array.isArray(res) ? res.length : 1;
+        console.log(`Batch updated ${Array.isArray(res) ? res.length : 1} records`);
+      } catch (batchErr) {
+        console.error('Error updating batch:', batchErr);
+      }
+    }
 
     // Successful response
     const response = {
