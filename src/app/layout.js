@@ -45,7 +45,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-          <link rel="icon" type="image/png" sizes="32x32" href="/white-background-fist.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
           <title>Coney Power, Kickboxing , Mauy Thai, Boxing, Fitness Classes</title>
           <meta name="keywords" content="fitness, gym, classes, Kickboxing, Muay Thai, Boxing, training" />
           <meta name="description" content="Train hard, Live fully"/>
