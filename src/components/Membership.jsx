@@ -186,7 +186,7 @@ const Membership = () => {
           key={index}
           className={`px-6 py-2 font-semibold transition-colors duration-200 focus:outline-none ${
             classType === cat
-              ? 'bg-[#C5A572] text-white'
+              ? 'bg-[#C5a572] text-white'
               : 'bg-black text-white'
           }`}
           onClick={() => setClassType(cat)}
@@ -199,7 +199,7 @@ const Membership = () => {
     {/* <button
       className={`px-6 py-2 font-semibold transition-colors duration-200 focus:outline-none ${
         classType === 'Ladies'
-          ? 'bg-[#C5A572] text-white'
+          ? 'bg-[#C5a572] text-white'
           : 'bg-black text-white'
       }`}
       onClick={() => setClassType('ladies')}
@@ -210,7 +210,7 @@ const Membership = () => {
     <button
       className={`px-6 py-2 font-semibold transition-colors duration-200 focus:outline-none ${
         classType === '6-12'
-          ? 'bg-[#C5A572] text-white'
+          ? 'bg-[#C5a572] text-white'
           : 'bg-black text-white'
       }`}
       onClick={() => setClassType('6-12')}
@@ -221,7 +221,7 @@ const Membership = () => {
     <button
       className={`px-6 py-2 font-semibold transition-colors duration-200 focus:outline-none ${
         classType === '13-17'
-          ? 'bg-[#C5A572] text-white'
+          ? 'bg-[#C5a572] text-white'
           : 'bg-black text-white'
       }`}
       onClick={() => setClassType('13-17')}
@@ -236,7 +236,7 @@ const Membership = () => {
             <div
               key={plan.name}
               className={`bg-black flex flex-col p-6 mx-auto max-w-lg text-center  rounded-lg border border-gray-100 shadow text-white ${
-                plan.popular ? 'ring-2 ring-[#C5A572]' : ''
+                plan.popular ? 'ring-2 ring-[#C5a572]' : ''
               }`}
             >
               {plan.popular && (

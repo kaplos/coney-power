@@ -19,7 +19,7 @@ export default function ScheduleCard({ classInfo,bookedClasses,setBookedClasses 
   return (
     <div key={classInfo.id} className="bg-black shadow rounded-lg p-2 mb-2 flex flex-col gap-1 w-full max-w-[170px] mx-auto sm:max-w-[180px]">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold text-[#C5A572] truncate">
+        <h3 className="text-sm font-bold text-[#C5a572] truncate">
           {classInfo["Class Name"]}
         </h3>
         <span className="text-xs text-white">

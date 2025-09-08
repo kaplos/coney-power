@@ -126,7 +126,7 @@ export default function WaiverModal({ open, onClose, onAccept, waiverText }) {
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}
             disabled={!scrolledToBottom}
-            className="w-4 h-4 accent-[#C5A572] focus:ring-0 "
+            className="w-4 h-4 accent-[#C5a572] focus:ring-0 "
           />
           <label htmlFor="waiver-accept" className={`text-sm ${!scrolledToBottom ? 'text-gray-400' : ''}`}>
             I have read and agree to the waiver terms.
@@ -138,7 +138,7 @@ export default function WaiverModal({ open, onClose, onAccept, waiverText }) {
           <button
             onClick={() => { if (checked) onAccept(); }}
             disabled={!checked}
-            className={`px-4 py-2 rounded ${checked ? 'bg-[#C5A572] text-black hover:bg-[#b89c5e]' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+            className={`px-4 py-2 rounded ${checked ? 'bg-[#C5a572] text-black hover:bg-[#b89c5e]' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
           >
             Accept & Continue
           </button>

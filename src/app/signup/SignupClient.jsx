@@ -193,7 +193,7 @@ export default function SignupClient() {
         <button
           type="button"
           onClick={() => signIn("google")}
-          className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-white rounded-md shadow-sm text-base font-semibold bg-[#C5A572] text-white mb-6"
+          className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-white rounded-md shadow-sm text-base font-semibold bg-[#C5a572] text-white mb-6"
         >
           {mode === "signup" ? "Sign up with Google" : "Sign in with Google"}
         </button>
@@ -211,16 +211,16 @@ export default function SignupClient() {
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-white">Name</label>
                 <input id="name" name="name" type="text" required autoComplete="name" value={form.name} onChange={handleChange}
-                  className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5A572] focus:border-[#C5A572] sm:text-sm" />
+                  className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5a572] focus:border-[#C5a572] sm:text-sm" />
               </div>
             )}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-white">Email address</label>
               <input id="email" name="email" type="email" required autoComplete="email" value={form.email} onChange={handleChange}
-                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5A572] focus:border-[#C5A572] sm:text-sm" />
+                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5a572] focus:border-[#C5a572] sm:text-sm" />
             </div>
             {error && <div className="text-red-500 text-sm">{error}</div>}
-            <button type="submit" disabled={loading} className="w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-[#C5A572] hover:bg-[#b89c5e]">
+            <button type="submit" disabled={loading} className="w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-[#C5a572] hover:bg-[#b89c5e]">
               {loading ? "Checking..." : "Continue"}
             </button>
           </form>
@@ -231,18 +231,18 @@ export default function SignupClient() {
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-white">Password</label>
               <input id="password" name="password" type="password" required autoComplete="new-password" value={form.password} onChange={handleChange}
-                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5A572] focus:border-[#C5A572] sm:text-sm" />
+                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5a572] focus:border-[#C5a572] sm:text-sm" />
             </div>
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-white">Confirm Password</label>
               <input id="confirmPassword" name="confirmPassword" type="password" required autoComplete="new-password" value={form.confirmPassword} onChange={handleChange}
-                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5A572] focus:border-[#C5A572] sm:text-sm" />
+                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5a572] focus:border-[#C5a572] sm:text-sm" />
             </div>
             {error && <div className="text-red-500 text-sm">{error}</div>}
             {success && <div className="text-green-500 text-sm">Account created! Redirecting </div>}
             <div className="flex justify-between">
               <button type="button" onClick={() => { setStep(1); setLoading(false); }} className="text-sm text-gray-400 hover:text-white underline">Back</button>
-              <button type="submit" disabled={loading || error} className="ml-2 flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-[#C5A572] hover:bg-[#b89c5e]">
+              <button type="submit" disabled={loading || error} className="ml-2 flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-[#C5a572] hover:bg-[#b89c5e]">
                 {loading ? "Creating..." : "Sign Up"}
               </button>
             </div>
@@ -254,13 +254,13 @@ export default function SignupClient() {
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-white">Password</label>
               <input id="password" name="password" type="password" required autoComplete="current-password" value={form.password} onChange={handleChange}
-                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5A572] focus:border-[#C5A572] sm:text-sm" />
+                className="p-2 mt-1 block w-full rounded-md border border-white bg-black text-white shadow-sm focus:ring-[#C5a572] focus:border-[#C5a572] sm:text-sm" />
             </div>
             {error && <div className="text-red-500 text-sm">{error}</div>}
             {success && <div className="text-green-500 text-sm">Signed in! Redirecting…</div>}
             <div className="flex justify-between">
               <button type="button" onClick={() => setStep(1)} className="text-sm text-gray-400 hover:text-white underline">Back</button>
-              <button type="submit" disabled={loading} className="ml-2 flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-[#C5A572] hover:bg-[#b89c5e]">
+              <button type="submit" disabled={loading} className="ml-2 flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-[#C5a572] hover:bg-[#b89c5e]">
                 {loading ? "Signing in..." : "Sign In"}
               </button>
             </div>
@@ -271,14 +271,14 @@ export default function SignupClient() {
           {mode === "signup" ? (
             <>
               Already have an account?{" "}
-              <button className="text-[#C5A572] hover:underline cursor-pointer" onClick={() => { setMode("signin"); setStep(1); setForm({ ...form, password: "", confirmPassword: "", name: "" }); setError(""); setSuccess(false); }}>
+              <button className="text-[#C5a572] hover:underline cursor-pointer" onClick={() => { setMode("signin"); setStep(1); setForm({ ...form, password: "", confirmPassword: "", name: "" }); setError(""); setSuccess(false); }}>
                 Sign in
               </button>
             </>
           ) : (
             <>
               Don't have an account?{" "}
-              <button className="text-[#C5A572] hover:underline cursor-pointer" onClick={() => { setMode("signup"); setStep(1); setForm({ ...form, password: "", confirmPassword: "" }); setError(""); setSuccess(false); }}>
+              <button className="text-[#C5a572] hover:underline cursor-pointer" onClick={() => { setMode("signup"); setStep(1); setForm({ ...form, password: "", confirmPassword: "" }); setError(""); setSuccess(false); }}>
                 Sign up
               </button>
             </>

@@ -29,7 +29,7 @@ export default function Hero () {
           Classes for every body.
         </p>
         <a
-          className="inline-flex items-center gap-2 bg-[#C5A572] hover:bg-[#a88a4a] text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
+          className="inline-flex items-center gap-2 bg-[#C5a572] hover:bg-[#a88a4a] text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
 
           href={hasActiveSubscription ? "#schedule":"#membership" }
         >

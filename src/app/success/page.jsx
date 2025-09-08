@@ -37,7 +37,7 @@ export default function Success({}) {
           
           <Link 
             href="/" 
-            className="inline-block w-full bg-primary text-[#C5A572] font-semibold py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+            className="inline-block w-full bg-primary text-[#C5a572] font-semibold py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
           >
             Return to Home
           </Link>

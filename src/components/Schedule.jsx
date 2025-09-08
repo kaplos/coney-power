@@ -90,7 +90,7 @@ useEffect(()=>{
 
         <div className="overflow-x-auto shadow rounded-lg">
           <table className="w-full bg-blue-500 rounded-lg overflow-hidden text-xs md:text-sm">
-            <thead className="bg-[#C5A572] text-white">
+            <thead className="bg-[#C5a572] text-white">
               <tr>
                 <th className="py-2 px-2 text-left font-semibold">Time (ET)</th>
                 {weekDates.map((day, i) => (

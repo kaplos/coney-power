@@ -11,12 +11,12 @@ export async function POST(request) {
   // const metaData = searchParams.get('metaData') || ''; // Default metadata if not provided
   const objectMap = {
     // Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' ,metaData: "recXjTTaQ0P0TIUUV" },
-    Standard: { price: 'price_1Rw6zARUl1PVsffznBgfCgK1', mode: 'subscription' ,metaData: "recsnVL6w3dnG5nP9" },
-    Unlimited: { price: 'price_1Rw6x9RUl1PVsffzOtg7jd5p', mode: 'subscription' ,metaData: "rec1qEpy3ruJzF1SK" },
-    'Single Kids Class': { price: 'price_1S1XwGRUl1PVsffzkKnJOIRr', mode: 'payment' ,metaData: "recguITtonVGfoAfn" },
-    'Single Class': { price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'payment', metaData: "recfs32A6UrFiAOCY" },
-    Kids: { price: 'price_1S1XzYRUl1PVsffzcSl5Td5P', mode: 'subscription' ,metaData: "recrCAxtf8uzMPXgU" },
-    default: {  price: 'price_1Rw72ARUl1PVsffzZGr4TR40', mode: 'payment' },
+    Standard: { price: process.env.STANDARD_MONTHLY, mode: 'subscription' ,metaData: "recsnVL6w3dnG5nP9" },
+    Unlimited: { price: process.env.UNLIMITED_MONTHLY, mode: 'subscription' ,metaData: "rec1qEpy3ruJzF1SK" },
+    'Single Kids Class': { price: process.env.SINGLE_KIDS_CLASS, mode: 'payment' ,metaData: "recguITtonVGfoAfn" },
+    'Single Class': { price: process.env.SINGLE_CLASS, mode: 'payment', metaData: "recfs32A6UrFiAOCY" },
+    Kids: { price: process.env.KIDS_UNLIMITED_MONTHLY, mode: 'subscription' ,metaData: "recrCAxtf8uzMPXgU" },
+    default: {  price: process.env.SINGLE_CLASS, mode: 'payment' },
   };
   
   const {

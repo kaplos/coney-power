@@ -47,7 +47,7 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-white hover:text-[#C5A572] font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C5A572] focus:ring-offset-2 rounded-sm px-2 py-1"
+                className="text-white hover:text-[#C5a572] font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C5a572] focus:ring-offset-2 rounded-sm px-2 py-1"
               >
                 {item.name}
               </a>
@@ -56,7 +56,7 @@ const Header = () => {
             <div className="relative">
               {session ? (
                 <div
-                  className="flex items-center rounded-md bg-[#C5A572] cursor-pointer relative"
+                  className="flex items-center rounded-md bg-[#C5a572] cursor-pointer relative"
                   onClick={() => setIsDropdownOpen((v) => !v)}
                 >
                   {/* <img src={session.user.image} alt="User Avatar" className="h-8 w-8 rounded-full"/> */}
@@ -97,7 +97,7 @@ const Header = () => {
                 </div>
               ) : (
                  <div onClick={() => router.push('/signup')} className="flex items-center gap-2 cursor-pointer">
-                  <button className="p-2 rounded-md text-gray-700 bg-[#C5A572] cursor-pointer">
+                  <button className="p-2 rounded-md text-gray-700 bg-[#C5a572] cursor-pointer">
                     <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
                       Sign In/Sign Up
                     </span>
@@ -126,7 +126,7 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-white hover:text-[#C5A572] font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C5A572] focus:ring-offset-2 rounded-sm px-2 py-2"
+                  className="text-white hover:text-[#C5a572] font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C5a572] focus:ring-offset-2 rounded-sm px-2 py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -135,7 +135,7 @@ const Header = () => {
               ))}
                 {session ? (
                   <div onClick={() => {signOut(); }} className="flex items-center gap-2 cursor-pointer">
-                    <button className="rounded-md text-gray-700 p-2 bg-[#C5A572]">
+                    <button className="rounded-md text-gray-700 p-2 bg-[#C5a572]">
                       <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
                         Log Out
                       </span>
@@ -143,7 +143,7 @@ const Header = () => {
                   </div>
                 ) : (
                   <div onClick={() =>router.push('/signup')} className="flex items-center gap-2 cursor-pointer">
-                    <button className="rounded-md text-gray-700 p-2 bg-[#C5A572]">
+                    <button className="rounded-md text-gray-700 p-2 bg-[#C5a572]">
                       <span className="text-white hover:text-[#534631] font-medium transition-colors duration-200 rounded-sm px-2 py-1">
                         Sign In/Sign Up
                       </span>

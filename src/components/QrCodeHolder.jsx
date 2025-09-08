@@ -64,7 +64,7 @@ export default function QrCodeHolder({ memberId }) {
                             <button
                                 type="button"
                                 onClick={() => setOpen(false)}
-                                className="px-4 py-2 bg-[#C5A572] text-white rounded hover:bg-goldHover"
+                                className="px-4 py-2 bg-[#C5a572] text-white rounded hover:bg-goldHover"
                             >
                                 Done
                             </button>

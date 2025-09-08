@@ -156,8 +156,8 @@ export default function CheckoutButton({
               : isBooked
               ? 'bg-green-500'
               : popular
-              ? 'bg-[#C5A572] hover:bg-[#b89c5e]'
-              : 'bg-[#C5A572] hover:bg-[#b89c5e] text-white'
+              ? 'bg-[#C5a572] hover:bg-[#b89c5e]'
+              : 'bg-[#C5a572] hover:bg-[#b89c5e] text-white'
           }`}
       >
         {loading && (

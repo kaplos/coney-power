@@ -157,7 +157,7 @@ export default function BookingsListPage() {
           <div className="py-8 text-center">
             <p className="text-gray-300 mb-4">You must be signed in to view your schedule.</p>
             <button
-              className="bg-[#C5A572] px-4 py-2 rounded"
+              className="bg-[#C5a572] px-4 py-2 rounded"
               onClick={() => signIn(undefined, { callbackUrl: '/bookings' })}
             >
               Sign in
