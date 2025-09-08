@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { format, startOfWeek, addDays, isSameDay, parseISO } from 'date-fns';
 import { useSession } from 'next-auth/react';
 import ScheduleCard from './ScheduleCard';
+import { toZonedTime ,formatInTimeZone} from 'date-fns-tz';
+
+const TZ = 'America/New_York';
 
 const fetchClasses = async () => {
   try {
@@ -63,28 +66,33 @@ useEffect(()=>{
       
   },[])
 
-  // Only show hours that have at least one class (using UTC hour)
-  const hoursWithClasses = Array.from(
-    new Set(classes.map(cls => parseISO(cls['Class Time']).getUTCHours()))
+  // Only show hours that have at least one class (using America/New_York hour)
+   const hoursWithClasses = Array.from(
+    new Set(
+      classes.map((cls) => {
+        const iso = cls['Class Time'];
+        if (!iso) return null;
+        const hourStr = formatInTimeZone(parseISO(iso), TZ, 'H'); // '0'..'23'
+        return Number(hourStr);
+      }).filter(Boolean)
+    )
   ).sort((a, b) => a - b);
+    const formatHourLabel = (hour) => {
+    const h12 = ((hour + 11) % 12) + 1;
+    const ampm = hour < 12 ? 'AM' : 'PM';
+    return `${h12}:00 ${ampm}`;
+  };
 
-  return (
+ return (
     <section id="schedule" className="py-10 bg-black">
       <div className="container mx-auto px-2">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-red-700">
-            Weekly Class Schedule
-          </h2>
-          <p className="text-base text-white max-w-xl mx-auto ">
-            Plan your perfect workout week with our diverse class offerings.
-          </p>
-        </div>
+        {/* ...existing header... */}
 
         <div className="overflow-x-auto shadow rounded-lg">
           <table className="w-full bg-blue-500 rounded-lg overflow-hidden text-xs md:text-sm">
             <thead className="bg-[#C5A572] text-white">
               <tr>
-                <th className="py-2 px-2 text-left font-semibold">Time (UTC)</th>
+                <th className="py-2 px-2 text-left font-semibold">Time (ET)</th>
                 {weekDates.map((day, i) => (
                   <th key={i} className="px-1 py-1 text-center font-semibold min-w-20">
                     {format(day, 'EEE dd')}
@@ -94,17 +102,16 @@ useEffect(()=>{
             </thead>
             <tbody>
               {hoursWithClasses.map((hour) => (
-                <tr key={hour} className={'bg-black '}>
-                  <td className="py-2 px-2 font-semibold text-white">
-  {`${((hour + 11) % 12 + 1)}:00 ${hour < 12 ? 'AM' : 'PM'}`}
-</td>
+                <tr key={hour} className="bg-black">
+                  <td className="py-2 px-2 font-semibold text-white">{formatHourLabel(hour)}</td>
                   {weekDates.map((day, i) => {
+                    const dayKey = format(day, 'yyyy-MM-dd');
                     const matchingClass = classes.find((cls) => {
-                      const start = parseISO(cls['Class Time']);
-                      return (
-                        isSameDay(start, day) &&
-                        start.getUTCHours() === hour
-                      );
+                      const iso = cls['Class Time'];
+                      if (!iso) return false;
+                      const startLocalDay = formatInTimeZone(parseISO(iso), TZ, 'yyyy-MM-dd');
+                      const startLocalHour = Number(formatInTimeZone(parseISO(iso), TZ, 'H'));
+                      return startLocalDay === dayKey && startLocalHour === hour;
                     });
 
                     return (
@@ -120,9 +127,7 @@ useEffect(()=>{
             </tbody>
           </table>
         </div>
-        <p className="text-center text-gray-500 text-xs mt-4 md:hidden">
-          Swipe left or right to view all days
-        </p>
+        {/* ...existing footer ... */}
       </div>
     </section>
   );

@@ -31,13 +31,14 @@ export default function ScheduleCard({ classInfo,bookedClasses,setBookedClasses 
       <div className="flex items-center justify-between text-xs text-white">
         <span>{formatInTimeZone(
             classInfo["Class Time"],
-            "UTC",
+            'America/New_York',
             "h:mm a"
           )}</span>
         <span>-</span>
         <span>{formatInTimeZone(
             classInfo["End Time"],
-            "UTC",
+
+            'America/New_York',
             "h:mm a"
           )}</span>
       </div>

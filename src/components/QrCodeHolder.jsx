@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react';
 import QRCodeClient from './QrCodeClient';
 import { ScanQrCode } from 'lucide-react';
+
 export default function QrCodeHolder({ memberId }) {
+    console.log(memberId,'memberId')
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -17,18 +19,21 @@ export default function QrCodeHolder({ memberId }) {
     return (
         <>
             {/* floating button fixed to viewport bottom-right */}
-            <div className="fixed bottom-5 right-5 z-50">
+            {
+                memberId?
+                <div className="fixed bottom-5 right-5 z-50">
                 <button
                     type="button"
                     aria-label="Show QR"
                     onClick={() => setOpen(true)}
                     className="flex items-center justify-center gap-2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition"
-                >
+                    >
                     {/* QR icon */}
                    <ScanQrCode className="w-6 h-6 text-black" />
                     <span className="sr-only">Show QR</span>
                 </button>
-            </div>
+            </div> : null
+            }
 
             {/* modal */}
             {open && (
