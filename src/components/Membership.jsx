@@ -3,15 +3,17 @@ import { useState } from 'react';
 import { Check, Star } from 'lucide-react';
 import CheckoutButton from './CheckoutButton';
 const Membership = () => {
-  const [classType, setClassType] = useState('Mens');
+  const [classType, setClassType] = useState('Mixed_Adults');
   const catergory = [
+    'Mixed_Adults',
     'Mens',
     'Ladies',
     '6-12',
     '13-17'
   ]
   const displayNames = {
-  Mens: "Men",
+  "Mixed_Adults": "Mixed Adults",
+    Mens: "Men",
   Ladies: "Ladies",
   "6-12": "Kids (6-12)",
   "13-17": "Teens (13-17)"
@@ -109,6 +111,51 @@ const Membership = () => {
       popular: false,
     }  ]
     ,
+    'Mixed_Adults': [
+    // {
+    //   name: 'Basic',
+    //   price: 29,
+    //   period: 'month',
+    //   description: 'Perfect for getting started',
+    //   features: [
+    //     'Access to gym equipment',
+    //     '2 group classes per week',
+    //     'Locker room access',
+    //     'Basic fitness assessment',
+    //   ],
+    //   popular: false,
+    // },
+   
+    {
+      name: 'Standard',
+      price: 150,
+      period: 'month',
+      description: 'Budget friendly option',
+      features: [
+        'Limited to 6 Classes Per Month'
+      ],
+      popular: false,
+    },
+    {
+      name: 'Unlimited',
+      price: 200,
+      period: 'month',
+      description: 'Complete fitness experience',
+      features: [
+        'Unlimited access to classes'
+      ],
+      popular: true,
+    },
+     {
+      name: 'Single Class',
+      price: 45 ,
+      period: 'One-time',
+      description: 'Perfect for getting started',
+      features: [
+        'Access to one class',
+      ],
+      popular: false,
+    }  ],
     '13-17': [
       {
       name: 'Unlimited',

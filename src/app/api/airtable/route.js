@@ -45,14 +45,14 @@ console.log(classCategory,'class category')
       id: record.id,
       ...record.fields,
     }));
-    // console.log('Fetched data:', data);
+    console.log('Fetched data:', data);
 
     return new Response(JSON.stringify(data), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Airtable error:', error.message);
+    console.error('Airtable error while getting classes:', error.message);
     return new Response(
       JSON.stringify({ error: 'Failed to fetch data from Airtable' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
