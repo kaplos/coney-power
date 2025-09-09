@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect,useState} from 'react';
 
 const images = [
   '/images/IMG_2505.JPG',
@@ -11,6 +11,7 @@ const images = [
 ];
 
 export default function MovingGallery({ speedSeconds = 30 }) {
+
   return (
     <div id='gallery' className="w-full overflow-hidden">
       {/* One track with duplicated images for a seamless loop */}

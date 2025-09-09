@@ -10,3 +10,4 @@ export default async function Page() {
 //TODO add the checkin backend page for the qr code
 //TODO add a check on the checkin page to make sure the waiver is filled out
 //FIXME change auth provider
+//TODO add on success page the qr info

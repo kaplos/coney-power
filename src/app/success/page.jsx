@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link'
 
+
 export default function Success({}) {
      
     useEffect(() => {
@@ -31,6 +32,7 @@ export default function Success({}) {
               {/* <li>• Check your email for welcome instructions</li>
               <li>• Download our mobile app</li>
               <li>• Book your first class</li> */}
+              <li className='text-red-400'>• Make sure to use the QR code to access our gym  (It is located on the bottom right of your screen)</li>
               <li>• Meet our trainers</li>
             </ul>
           </div>

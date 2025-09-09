@@ -14,7 +14,7 @@ export default function HomeContent({ session }) {
     <MessageProvider>
       <SessionProvider session={session}>
          <div className="min-h-screen bg-black">
-          <QrCodeHolder memberId={session?.user?.id} />
+          {/* <QrCodeHolder memberId={session?.user?.id} /> */}
           <Home />
         </div>
       </SessionProvider>
