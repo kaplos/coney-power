@@ -46,7 +46,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
    const session = await getServerSession(authOptions);
-   console.log(session)
+  //  console.log(session)
   return (
     <html lang="en">
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
