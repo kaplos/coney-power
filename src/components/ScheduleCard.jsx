@@ -34,11 +34,25 @@ export default function ScheduleCard({
       {/* taken out for now since it shows how many spots are left */}
       {/* <div>
         <span className="text-xs text-white">
+        {classInfo["Available Spots"] > 0
+        ? `${classInfo["Available Spots"]} left`
+        : "Full"}
+        </span>
+        </div> */}
+        <div>
+          <span className="text-xs text-white">
+            {classInfo["Available Spots"] > 0
+              ? `${classInfo["Available Spots"]} left`
+              : "Full"}
+          </span>
+        </div>
+      <div>
+        <span className="text-xs text-white">
           {classInfo["Available Spots"] > 0
             ? `${classInfo["Available Spots"]} left`
             : "Full"}
         </span>
-      </div> */}
+      </div>
       <div className="flex items-center justify-between text-xs text-white">
         <span>
           {formatInTimeZone(

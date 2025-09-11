@@ -40,6 +40,7 @@ export async function POST(request) {
           //   },
           //   unit_amount: price,
           // },
+
           price: price,
           quantity: 1,
         }
@@ -59,6 +60,7 @@ export async function POST(request) {
         category: category
         
       },
+      automatic_tax: { enabled: false },
       mode,
       success_url: `${request.headers.get('origin')}/success?item=${item}&metaData=${metaData}`,
       cancel_url: `${request.headers.get('origin')}`,

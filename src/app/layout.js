@@ -76,7 +76,10 @@ export default async function RootLayout({ children }) {
         <Providers> 
           <Header/>
           {children}
-          <QRCodeHolder memberId={session?.user?.id} />
+          {
+            session?.user?.id &&
+            <QRCodeHolder memberId={session?.user?.id} />
+          }
           <Footer/>
           </Providers>
       </body>
