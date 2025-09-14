@@ -1,11 +1,11 @@
 const Airtable = require('airtable');
-const { utcToZonedTime, zonedTimeToUtc, formatInTimeZone } = require('date-fns-tz');
+const { formatInTimeZone } = require('date-fns-tz');
 const { addDays } = require('date-fns');
 
 async function updateClassTimes(event, context) {
   // Airtable setup
   console.log('starting function')
-  const base = new Airtable({ apiKey: "pat5zX0sdbWiBK2iW.ef84a5a7db30f479f60769bf79980dd45cd33a590d55db0bd1a5b4e2b345db7e" }).base("appXvlowCAnautAT2");
+  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
   try {
     // Fetch all classes
