@@ -1,6 +1,4 @@
 const Airtable = require('airtable');
-const { formatInTimeZone } = require('date-fns-tz');
-const { formatInTimeZone } = require('date-fns-tz');
 const { addDays } = require('date-fns');
 
 exports.handler=async function (event, context) {
@@ -18,12 +16,10 @@ exports.handler=async function (event, context) {
     const updates = records
       .map(record => {
         const raw = record.fields['Class Time NY'];
-        const raw = record.fields['Class Time NY'];
         if (!raw) return null;
 
         // parse stored UTC timestamp
         // const utcDate = new Date(raw);
-        const utcDate = new Date(raw);
         // convert to local NY time, add 7 days in NY (preserve wall-clock)
        const local = new Date(raw); // parse NY time string as Date
         const nextLocal = addDays(local, 7);
