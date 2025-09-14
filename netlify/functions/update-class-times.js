@@ -1,10 +1,10 @@
 const Airtable = require('airtable');
-const { utcToZonedTime, zonedTimeToUtc, formatInTimeZone } = require('date-fns-tz');
+const { utcToZonedTime, formatInTimeZone } = require('date-fns-tz');
 const { addDays } = require('date-fns');
 
 exports.handler = async function(event, context) {
   // Airtable setup
-  console.log('starting function')
+  console.log('starting function');
   const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
   try {
@@ -13,30 +13,25 @@ exports.handler = async function(event, context) {
 
     const TZ = 'America/New_York';
 
-    // Prepare updates: move each class 7 days forward and write both UTC field and NY field
+    // Prepare updates: move each class 7 days forward based on 'Class Time NY'
     const updates = records
       .map(record => {
-        const raw = record.fields['Class Time'];
+        const raw = record.fields['Class Time NY'];
         if (!raw) return null;
 
-        // parse stored UTC timestamp
-        const utcDate = new Date(raw);
+        // Parse stored NY timestamp
+        const nyDate = new Date(raw);
 
-        // convert to local NY time, add 7 days in NY (preserve wall-clock)
-        const local = utcToZonedTime(utcDate, TZ);
-        const nextLocal = addDays(local, 7);
+        // Add 7 days in NY time
+        const nextNyDate = addDays(nyDate, 7);
 
-        // convert back to UTC for storage in 'Class Time'
-        const nextUtc = zonedTimeToUtc(nextLocal, TZ);
-
-        // formatted NY string for 'Class Time NY' — adjust format as you prefer
-        const classTimeNY = formatInTimeZone(nextUtc, TZ, "yyyy-MM-dd HH:mm 'ET'");
+        // Format the EST string for 'Class Time NY'
+        const nextClassTimeNY = formatInTimeZone(nextNyDate, TZ, "yyyy-MM-dd HH:mm 'ET'");
 
         return {
           id: record.id,
           fields: {
-            // 'Class Time': nextUtc.toISOString(),   // keeps UTC ISO for your main field
-            'Class Time NY': classTimeNY           // human/local representation
+            'Class Time NY': nextClassTimeNY // Updated NY time representation
           },
         };
       })
