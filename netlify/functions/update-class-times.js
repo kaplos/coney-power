@@ -1,5 +1,5 @@
 const Airtable = require('airtable');
-const { utcToZonedTime, formatInTimeZone } = require('date-fns-tz');
+const { formatInTimeZone } = require('date-fns-tz');
 const { addDays } = require('date-fns');
 
 exports.handler = async function(event, context) {
