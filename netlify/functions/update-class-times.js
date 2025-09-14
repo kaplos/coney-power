@@ -1,8 +1,9 @@
 const Airtable = require('airtable');
 const { formatInTimeZone } = require('date-fns-tz');
+const { formatInTimeZone } = require('date-fns-tz');
 const { addDays } = require('date-fns');
 
-async function updateClassTimes(event, context) {
+exports.handler=async function (event, context) {
   // Airtable setup
   console.log('starting function')
   const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
@@ -16,6 +17,7 @@ async function updateClassTimes(event, context) {
     // Prepare updates: move each class 7 days forward and write both UTC field and NY field
     const updates = records
       .map(record => {
+        const raw = record.fields['Class Time NY'];
         const raw = record.fields['Class Time NY'];
         if (!raw) return null;
 
@@ -57,4 +59,3 @@ async function updateClassTimes(event, context) {
     };
   }
 };
-updateClassTimes()
