@@ -2,7 +2,7 @@ name: Weekly update-class-times
 
 on:
   schedule:
-    - cron: '0 4 * * FRI'  # runs every Friday at 04:00 UTC — adjust to match your Friday night local time
+  - cron: '0 0 * * SAT'  # runs every Friday at 04:00 UTC — adjust to match your Friday night local time
   workflow_dispatch: {}    # allows manual run for testing
 
 jobs:
@@ -12,8 +12,7 @@ jobs:
       - name: Trigger Netlify function
         env:
           SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}      # e.g. https://your-site.netlify.app
-          SCHEDULE_SECRET: ${{ secrets.SCHEDULE_SECRET }}  # must match Netlify SCHEDULE_SECRET
+          # SCHEDULE_SECRET: ${{ secrets.SCHEDULE_SECRET }}  # must match Netlify SCHEDULE_SECRET
         run: |
           curl -fsS -X POST "${SITE_URL}/.netlify/functions/update-class-times" \
-            -H "x-schedule-secret: ${SCHEDULE_SECRET}" \
             || (echo "Netlify function call failed" && exit 1)
