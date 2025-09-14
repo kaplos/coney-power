@@ -2,10 +2,10 @@ const Airtable = require('airtable');
 const { utcToZonedTime, zonedTimeToUtc, formatInTimeZone } = require('date-fns-tz');
 const { addDays } = require('date-fns');
 
-exports.handler = async function(event, context) {
+async function updateClassTimes(event, context) {
   // Airtable setup
   console.log('starting function')
-  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
+  const base = new Airtable({ apiKey: "pat5zX0sdbWiBK2iW.ef84a5a7db30f479f60769bf79980dd45cd33a590d55db0bd1a5b4e2b345db7e" }).base("appXvlowCAnautAT2");
 
   try {
     // Fetch all classes
@@ -16,27 +16,22 @@ exports.handler = async function(event, context) {
     // Prepare updates: move each class 7 days forward and write both UTC field and NY field
     const updates = records
       .map(record => {
-        const raw = record.fields['Class Time'];
+        const raw = record.fields['Class Time NY'];
         if (!raw) return null;
 
         // parse stored UTC timestamp
+        // const utcDate = new Date(raw);
         const utcDate = new Date(raw);
-
         // convert to local NY time, add 7 days in NY (preserve wall-clock)
-        const local = utcToZonedTime(utcDate, TZ);
+       const local = new Date(raw); // parse NY time string as Date
         const nextLocal = addDays(local, 7);
 
-        // convert back to UTC for storage in 'Class Time'
-        const nextUtc = zonedTimeToUtc(nextLocal, TZ);
-
-        // formatted NY string for 'Class Time NY' — adjust format as you prefer
-        const classTimeNY = formatInTimeZone(nextUtc, TZ, "yyyy-MM-dd HH:mm 'ET'");
 
         return {
           id: record.id,
           fields: {
             // 'Class Time': nextUtc.toISOString(),   // keeps UTC ISO for your main field
-            'Class Time NY': classTimeNY           // human/local representation
+            'Class Time NY': nextLocal           // human/local representation
           },
         };
       })
@@ -62,3 +57,4 @@ exports.handler = async function(event, context) {
     };
   }
 };
+updateClassTimes()
