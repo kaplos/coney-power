@@ -45,7 +45,7 @@ console.log(classCategory,'class category')
       id: record.id,
       ...record.fields,
     }));
-    console.log('Fetched data:', data);
+    // console.log('Fetched data:', data);
 
     return new Response(JSON.stringify(data), {
       status: 200,

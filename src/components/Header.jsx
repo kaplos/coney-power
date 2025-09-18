@@ -4,11 +4,10 @@ import { LogIn, Menu, X, User} from 'lucide-react';
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 
-const Header = () => {
+const Header = ({session}) => {
   const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {data: session} = useSession()
     const dropdownRef = useRef(null);
 
   const toggleMenu = () => {

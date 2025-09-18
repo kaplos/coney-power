@@ -108,6 +108,7 @@ CredentialsProvider({
 
     },
     async session({ session }) {
+      console.log('Session callback for:', session?.user?.email);
       try {
         const email = session.user.email;
         const records = await base('Members').select({
