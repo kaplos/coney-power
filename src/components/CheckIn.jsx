@@ -6,6 +6,7 @@ import { Html5Qrcode } from "html5-qrcode";
 export default function CheckIn(){
       const [status, setStatus] = useState("idle"); // idle, scanning, scanned, error,success,loading
   const [errorMessage, setErrorMessage] = useState("");
+    const [camera, setCamera] = useState(false);
   const [scanResult, setScanResult] = useState("");
   const html5QrCodeRef = useRef(null);
 
@@ -57,7 +58,7 @@ export default function CheckIn(){
     if (devices && devices.length) {
       const cameraId = devices[0].id;
       html5QrCodeRef.current.start(
-        cameraId,
+        {facingMode: camera ? "environment" : "user"},
         { fps: 10, qrbox: { width: 250, height: 250 } },
         async (decodedText) => {
           console.log("scanning started");
@@ -134,6 +135,12 @@ export default function CheckIn(){
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-black">
+            <button className="absolute top-0 right-5 p-10  " onClick={() =>{
+                console.log('clicked')
+            setCamera(!camera)
+            }
+        } ></button>
+
       {/* Always render the reader, just hide it when not scanning */}
       {/* this is the div that holds the scanner */}
       <div
