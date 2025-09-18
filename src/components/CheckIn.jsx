@@ -6,7 +6,7 @@ import { Html5Qrcode } from "html5-qrcode";
 export default function CheckIn(){
       const [status, setStatus] = useState("idle"); // idle, scanning, scanned, error,success,loading
   const [errorMessage, setErrorMessage] = useState("");
-    const [camera, setCamera] = useState(false);
+    const [camera, setCamera] = useState(true);
   const [scanResult, setScanResult] = useState("");
   const html5QrCodeRef = useRef(null);
 
@@ -73,7 +73,18 @@ export default function CheckIn(){
       );
     }
   };
-
+const switchCamera = async () => {
+  // Stop the current scan if running
+  if (html5QrCodeRef.current) {
+    await html5QrCodeRef.current.stop().catch(() => {});
+  }
+  // Toggle camera state
+  setCamera((prev) => !prev);
+  // Restart scan with new camera after state updates
+  setTimeout(() => {
+    startScan();
+  }, 100); // slight delay to ensure state updates
+};
   const stopScan = async () => {
     setStatus("idle");
     if (html5QrCodeRef.current) {
@@ -137,7 +148,7 @@ export default function CheckIn(){
     <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-black">
             <button className="absolute top-0 right-5 p-10  " onClick={() =>{
                 console.log('clicked')
-            setCamera(!camera)
+            switchCamera()
             }
         } ></button>
 
