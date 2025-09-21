@@ -1,7 +1,7 @@
 const Airtable = require('airtable');
 const { subDays } = require('date-fns');
 
-exports.handler=async function decreaseTime(event, context) {
+exports.handler=async function (event, context) {
   // Airtable setup
   console.log('starting function')
   const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
