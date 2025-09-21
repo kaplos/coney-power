@@ -55,5 +55,3 @@ exports.handler=async function (event, context) {
     };
   }
 };
-
-decreaseTime()
