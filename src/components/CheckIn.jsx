@@ -133,14 +133,14 @@ const switchCamera = async () => {
             <span className="text-white text-lg font-bold text-center px-4 z-20">
                 { "Please See Front Desk" }  
             </span>
-            <button
+            {/* <button
                 onClick={() => setStatus("idle")}
                 className="mt-6 rounded-md bg-[#c5a572] text-white text-xl font-bold shadow-lg  transition flex items-center justify-center z-20"
                 style={{ width: "auto", height: "auto", minWidth: 120 }}
                 aria-label="Try Again"
             >
                 <span className="text-3xl p-2">Try Again</span>
-            </button>
+            </button> */}
         </>
     );
   }

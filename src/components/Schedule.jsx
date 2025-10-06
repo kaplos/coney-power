@@ -48,7 +48,7 @@ export default function WeeklySchedule() {
       setClasses(data);
     };
 
-    const start = startOfWeek(new Date(), { weekStartsOn: 0 });
+    const start = startOfWeek(new Date(), { weekStartsOn: 6 });
     const days = Array.from({ length: 6 }, (_, i) => addDays(start, i));
     setWeekDates(days);
 
