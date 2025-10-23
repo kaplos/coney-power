@@ -27,7 +27,7 @@ console.log(classCategory,'class category',gender,"Gender")
   // const kidsSubscriptionIds = ['recrCAxtf8uzMPXgU']; // Add all Kids subscription IDs here
   // const adultSubscriptionIds = ['recsnVL6w3dnG5nP9', 'rec1qEpy3ruJzF1SK']; // Add all Adult subscription IDs here
   if(classCategory && gender){
-
+    console.log('adding filter for category and gender')
     filterFormula = `AND(${filterFormula}, AND({Class Category} = '${classCategory}',{Gender} = '${gender}'))`;
   }
   // if (subscriptionTypeId) {
@@ -53,7 +53,7 @@ console.log(classCategory,'class category',gender,"Gender")
       id: record.id,
       ...record.fields,
     }));
-    // console.log('Fetched data:', data);
+    console.log('Fetched data:', data.length);
 
     return new Response(JSON.stringify(data), {
       status: 200,
