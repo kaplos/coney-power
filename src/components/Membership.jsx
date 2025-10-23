@@ -2,9 +2,12 @@
 import { useState } from "react";
 import { Check, Star } from "lucide-react";
 import CheckoutButton from "./CheckoutButton";
-const Membership = () => {
+const Membership = async () => {
+``
+
     const [classType, setClassType] = useState("Adults");
     const [genderType, setGenderType] = useState("");
+
     const category = [ "Adults", "Teens", "Kids",'after_School_Program'];
     const genderOptions = ["Male", "Female"];
     const afterClasses = ["AfterSchool#1", "AfterSchool#2", "AfterSchool#3"];
@@ -30,6 +33,7 @@ const Membership = () => {
     const plans = {
         Adults: [
             {
+                price_id:"",
                 name: "Unlimited",
                 price: 195,
                 period: "month",

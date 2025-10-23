@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import { withRetry } from "@/lib/withRetry.js";
 
-
+// FIXME anytime starting this function always remember to make the local listener stripe listen --forward-to localhost:3001/api/webhook 
 const isDev = process.env.NODE_ENV !== 'production';
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   process.env.AIRTABLE_BASE_ID

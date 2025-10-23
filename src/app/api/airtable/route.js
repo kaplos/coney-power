@@ -26,7 +26,10 @@ console.log(classCategory,'class category',gender,"Gender")
   // Map your subscriptionType IDs to category
   // const kidsSubscriptionIds = ['recrCAxtf8uzMPXgU']; // Add all Kids subscription IDs here
   // const adultSubscriptionIds = ['recsnVL6w3dnG5nP9', 'rec1qEpy3ruJzF1SK']; // Add all Adult subscription IDs here
-filterFormula = `AND(${filterFormula}, AND({Class Category} = '${classCategory}',{Gender} = '${gender}'))`;
+  if(classCategory && gender){
+
+    filterFormula = `AND(${filterFormula}, AND({Class Category} = '${classCategory}',{Gender} = '${gender}'))`;
+  }
   // if (subscriptionTypeId) {
   //   if (kidsSubscriptionIds.includes(subscriptionTypeId)) {
   //     filterFormula = `AND(${filterFormula}, {Class Category} = '${classCategory}')`;
