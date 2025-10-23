@@ -86,7 +86,7 @@ useEffect(()=>{
  return (
     <section id="schedule" className="py-10 bg-black">
       <div className="container mx-auto px-2">
-        {/* ...existing header... */}
+        <p className='self-center pb-1' >** Please bring grip socks or you can purchase grip socks at the gym</p>
 
         <div className="overflow-x-auto shadow rounded-lg">
           <table className="w-full bg-blue-500 rounded-lg overflow-hidden text-xs md:text-sm">
@@ -115,11 +115,11 @@ useEffect(()=>{
                     });
 
                     return (
-                      <td key={i} className="py-1 px-1 text-center last:border-r-0 align-top">
-                        {matchingClass ? (
-                          <ScheduleCard classInfo={matchingClass} bookedClasses={bookedClasses} setBookedClasses={setBookedClasses} />
-                        ) : null}
-                      </td>
+                        <td key={i} className="py-1 px-1 text-center last:border-r-0 align-top">
+                          {matchingClass ? (
+                            <ScheduleCard classInfo={matchingClass} bookedClasses={bookedClasses} setBookedClasses={setBookedClasses} />
+                          ) : null}
+                        </td>
                     );
                   })}
                 </tr>
@@ -127,7 +127,7 @@ useEffect(()=>{
             </tbody>
           </table>
         </div>
-        {/* ...existing footer ... */}
+
       </div>
     </section>
   );

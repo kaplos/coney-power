@@ -58,7 +58,7 @@ export async function POST(request) {
   
   // Store the webhook event AFTER it's been constructed
   // if(isDev){
-  //   await storeWebhookEvent(event);
+    // await storeWebhookEvent(event);
   // }
   
   try {
@@ -105,18 +105,18 @@ async function addToAirtable(event) {
     try {
       // Determine which credit to add based on metadata.product
       // These IDs should match your checkout route's metaData for each class type
-      const singleKidsClassId = "recguITtonVGfoAfn";
-      const singleAdultClassId = "recfs32A6UrFiAOCY";
+      // const singleKidsClassId = "recguITtonVGfoAfn";
+      // const singleAdultClassId = "recfs32A6UrFiAOCY";
 
-      let creditField = null;
+      // let creditField = null;
 
-      if (metadata.product === singleKidsClassId) {
-        creditField = "KidsClassCredit";
-      } else if (metadata.product === singleAdultClassId) {
-        creditField = "AdultClassCredit";
-      }
+      // if (metadata.product === singleKidsClassId) {
+      //   creditField = "KidsClassCredit";
+      // } else if (metadata.product === singleAdultClassId) {
+      //   creditField = "AdultClassCredit";
+      // }
 
-      if (creditField) {
+      // if (creditField) {
         // Find the user record
         const userRecords = await base('tblEuSd8AfoXS8rau').select({
           filterByFormula: `{Member Id} = "${metadata.userId}"`,
@@ -129,27 +129,29 @@ async function addToAirtable(event) {
         }
 
         const userRecord = userRecords[0];
-        const currentCredits = userRecord.fields[creditField] || 0;
+        // const currentCredits = userRecord.fields[creditField] || 0;
+        const currentCredits = userRecord.fields['One Time Credits'] || 0;
 
         // Increment the appropriate credit
         await base("tblEuSd8AfoXS8rau").update([
           {
             id: userRecord.id,
             fields: {
-              [creditField]: currentCredits + 1,
-              'Class Category': metadata.category
+              ['One Time Credits']: currentCredits + 1,
+              'Class Category': metadata.category,
+              'Gender': metadata.gender
             },
           },
         ]);
-        console.log(`Added 1 credit to ${creditField} for user ${metadata.userId}`);
-      }
+        console.log(`Added 1 credit to One Time Credits for user ${metadata.userId}`);
+      // }
 
       // Optionally, store the payment record as before
       // const record = await base("tblefuz5SkZIDP0sl").create({
       //   "Members": [metadata.userId],
       //   fldKgeZdfw9HPYXG0: payment_intent,
       // });
-      console.log("Payment record created:", record.getId());
+      // console.log("Payment record created:", record.getId());
     } catch (err) {
       console.error("Error creating payment record or updating credits:", err);
       throw err;
@@ -178,7 +180,8 @@ async function addToAirtable(event) {
           'Subscription Start Date': new Date().toISOString().split('T')[0],
           // 'Subscription End Date': "",
           'Subscription Id': subscription,
-          'Class Category': metadata.category
+          'Class Category': metadata.category,
+          'Gender': metadata.gender
         }
       }]);
       

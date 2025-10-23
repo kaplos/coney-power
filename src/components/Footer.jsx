@@ -111,7 +111,7 @@ const Footer = () => {
           <p className="text-white text-sm">© {new Date().getFullYear()} Coney Power. All rights reserved.</p>
 
           <a
-            href="https://candminc.store"
+            href="https://candminc.co"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-3 text-gray-300 hover:text-white transition-all"

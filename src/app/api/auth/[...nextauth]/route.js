@@ -123,12 +123,12 @@ CredentialsProvider({
           session.user.subscriptionType = userFields['Membership Type'] || null;
           session.user.waiver = userFields['Waiver Signed']==='Signed' || false;
           session.user.subscriptionStatus = userFields['Subscription Status'] || null;
-          session.user.adultClassCredit = userFields['AdultClassCredit'] || 0;
-          session.user.kidsClassCredit = userFields['KidsClassCredit'] || 0;
+          session.user.oneTimeCredits = userFields['One Time Credits'] || 0;
+          // session.user.kidsClassCredit = userFields['KidsClassCredit'] || 0;
           session.user.membershipName = userFields['Name (from Membership Type)'] ? userFields['Name (from Membership Type)'][0] : 'Not Subscribed';
           session.user.id = userFields['Member ID'] || 0;
           session.user.classCategory = userFields['Class Category'];
-
+          session.user.gender = userFields['Gender'];
         }
       } catch (err) {
         console.error('Airtable error (session):', err);

@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Netlify function
-        env:
-          SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}      # e.g. https://your-site.netlify.app
-          # SCHEDULE_SECRET: ${{ secrets.SCHEDULE_SECRET }}  # must match Netlify SCHEDULE_SECRET
         run: |
           curl -fsS -X POST "https://www.coneypower.com/.netlify/functions/update-class-times" \
             || (echo "Netlify function call failed" && exit 1)

@@ -12,6 +12,7 @@ export default function CheckoutButton({
   item = 'Basic',
   popular = false,
   category = '',
+  gender = '',
   metaData = '',
   disabled = false,
   type = 'class',
@@ -63,7 +64,7 @@ export default function CheckoutButton({
   };
 
   const goToSignup = () => {
-    const url = `/signup?checkout=1&item=${encodeURIComponent(item)}&metaData=${encodeURIComponent(metaData)}&category=${encodeURIComponent(category)}`;
+    const url = `/signup?checkout=1&item=${encodeURIComponent(item)}&metaData=${encodeURIComponent(metaData)}&category=${encodeURIComponent(category)}&gender=${encodeURIComponent(gender)}`;
     try {
       router.push(url);
     } catch {
@@ -81,7 +82,7 @@ export default function CheckoutButton({
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/checkout?item=${encodeURIComponent(item)}&metaData=${encodeURIComponent(metaData)}&category=${encodeURIComponent(category)}`,
+        `/api/checkout?item=${encodeURIComponent(item)}&metaData=${encodeURIComponent(metaData)}&category=${encodeURIComponent(category)}&gender=${encodeURIComponent(gender)}`,
         { method: 'POST' }
       );
 

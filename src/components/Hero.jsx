@@ -21,12 +21,19 @@ export default function Hero () {
   }}
 >
       <div className="absolute inset-0 bg-black/50" />
-      <div className="relative z-10 flex flex-col items-center justify-center text-center space-y-4 w-full">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight text-white">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center space-y-4 w-full p-8">
+        {/* <h1 className="text-4xl md:text-5xl font-bold leading-tight text-white">
           Train Hard, <span className="text-white"> Live fully</span>
         </h1>
         <p className="text-lg text-gray-200">
           Classes for every body.
+        </p> */}
+        <p className='text-4xl text-gray-200 font-bold'>Welcome To Coney Power</p>
+        <p className='leading-tight'>We offer a variety of activities that will make you a pro!</p>
+        <p className='leading-tight'>
+          Art, Dance, Fitness and more...</p>
+        <p className='leading-tight'>
+          Looking forward to enchacing coordination, learing respect,building up confidence, inproving focus,and learning the bueaty of the arts.
         </p>
         <a
           className="inline-flex items-center gap-2 bg-[#C5a572] hover:bg-[#a88a4a] text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"

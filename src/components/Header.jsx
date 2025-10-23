@@ -15,7 +15,7 @@ const Header = ({session}) => {
   };
 
   const navItems = [
-    { name: 'Home', href: '/' },
+    // { name: 'Home', href: '/' },
     { name: 'Schedule', href: '/#schedule' },
     { name: 'Membership', href: '/#membership' },
     { name: 'Gallery', href: '/gallery' },
@@ -36,9 +36,11 @@ const Header = ({session}) => {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="text-2xl font-bold text-blue-600">
-            <img src="/icon.jpeg" alt="Coney Power Logo" className="h-14 w-auto"/>
-          </div>
+          <a href="/">
+            <div className="text-2xl font-bold text-blue-600">
+              <img src="/icon.jpeg" alt="Coney Power Logo" className="h-14 w-auto"/>
+            </div>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">

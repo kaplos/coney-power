@@ -10,20 +10,21 @@ export async function POST(request) {
   const item = searchParams.get('item');
   // const metaData = searchParams.get('metaData') || ''; // Default metadata if not provided
   const objectMap = {
-    // Basic: { price: 'price_1RnVqjRUl1PVsffzTJWqkHvc', mode: 'subscription' ,metaData: "recXjTTaQ0P0TIUUV" },
+    Basic: { price: process.env.BASIC_MONTHLY, mode: 'subscription' ,metaData: "recrCAxtf8uzMPXgU" },
     Standard: { price: process.env.STANDARD_MONTHLY, mode: 'subscription' ,metaData: "recsnVL6w3dnG5nP9" },
     Unlimited: { price: process.env.UNLIMITED_MONTHLY, mode: 'subscription' ,metaData: "rec1qEpy3ruJzF1SK" },
-    'Single Kids Class': { price: process.env.SINGLE_KIDS_CLASS, mode: 'payment' ,metaData: "recguITtonVGfoAfn" },
     'Single Class': { price: process.env.SINGLE_CLASS, mode: 'payment', metaData: "recfs32A6UrFiAOCY" },
-    Kids: { price: process.env.KIDS_UNLIMITED_MONTHLY, mode: 'subscription' ,metaData: "recrCAxtf8uzMPXgU" },
+    'After School Program': { price: process.env.AFTER_SCHOOL_PROGRAM, mode: 'subscription', metaData: "recoCnCX9BXMVOWuk" },
+    // Kids: { price: process.env.KIDS_UNLIMITED_MONTHLY, mode: 'subscription' ,metaData: "recrCAxtf8uzMPXgU" },
     default: {  price: process.env.SINGLE_CLASS, mode: 'payment' },
   };
-  
+  console.log('Object map entry for item:', item, objectMap[item]);
   const {
   price = null,
   mode = null,
   metaData = searchParams.get('metaData'),
   category = searchParams.get('category'),
+  gender = searchParams.get('gender'),
 } = objectMap[item] ?? objectMap.default;
   console.log('Item:', item, 'Price:', price, 'Mode:', mode);
   
@@ -57,8 +58,8 @@ export async function POST(request) {
         product: metaData,
         // user: userSession?.user?.email || 'guest',
         userId: userSession?.user?.id || '0',
-        category: category
-        
+        category: category,
+        gender: gender
       },
       automatic_tax: { enabled: false },
       mode,
