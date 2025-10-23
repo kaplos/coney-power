@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { Check, Star } from "lucide-react";
 import CheckoutButton from "./CheckoutButton";
-const Membership = async () => {
-``
+const Membership = () => {
+
 
     const [classType, setClassType] = useState("Adults");
     const [genderType, setGenderType] = useState("");
