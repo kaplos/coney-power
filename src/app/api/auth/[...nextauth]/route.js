@@ -15,11 +15,11 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-  //   EmailProvider({
-  //     server: process.env.EMAIL_SERVER,
-  //     from: process.env.EMAIL_FROM,
-  //     maxAge: 15 * 60, // How long email links are valid for (default 24h)
-  // }),
+    EmailProvider({
+      server: process.env.EMAIL_SERVER,
+      from: process.env.EMAIL_FROM,
+      maxAge: 15 * 60, // How long email links are valid for (default 24h)
+  }),
 CredentialsProvider({
   name: "Email and Password",
   credentials: {
@@ -123,8 +123,8 @@ CredentialsProvider({
           session.user.subscriptionType = userFields['Membership Type'] || null;
           session.user.waiver = userFields['Waiver Signed']==='Signed' || false;
           session.user.subscriptionStatus = userFields['Subscription Status'] || null;
-          session.user.oneTimeCredits = userFields['One Time Credits'] || 0;
-          // session.user.kidsClassCredit = userFields['KidsClassCredit'] || 0;
+          session.user.adultClassCredit = userFields['AdultClassCredit'] || 0;
+          session.user.kidsClassCredit = userFields['KidsClassCredit'] || 0;
           session.user.membershipName = userFields['Name (from Membership Type)'] ? userFields['Name (from Membership Type)'][0] : 'Not Subscribed';
           session.user.id = userFields['Member ID'] || 0;
           session.user.classCategory = userFields['Class Category'];

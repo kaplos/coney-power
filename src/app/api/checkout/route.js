@@ -15,6 +15,7 @@ export async function POST(request) {
     Unlimited: { price: process.env.UNLIMITED_MONTHLY, mode: 'subscription' ,metaData: "rec1qEpy3ruJzF1SK" },
     'Single Class': { price: process.env.SINGLE_CLASS, mode: 'payment', metaData: "recfs32A6UrFiAOCY" },
     'After School Program': { price: process.env.AFTER_SCHOOL_PROGRAM, mode: 'subscription', metaData: "recoCnCX9BXMVOWuk" },
+    'Single Kids Class': { price: process.env.SINGLE_KIDS_CLASS, mode: 'payment' ,metaData: "rec5IaVRYFfEzwrYM" },
     // Kids: { price: process.env.KIDS_UNLIMITED_MONTHLY, mode: 'subscription' ,metaData: "recrCAxtf8uzMPXgU" },
     default: {  price: process.env.SINGLE_CLASS, mode: 'payment' },
   };

@@ -30,10 +30,10 @@ export async function POST(request) {
   const member = userRecords[0].fields;
   const subscriptionType = member['Name (from Membership Type)'][0];
   const sub = member['Subscription Status'] === "Active";
-  // const kidsClassCredits = member['KidsClassCredit'] || 0;
-  // const adultClassCredits = member['AdultClassCredit'] || 0;
-  const oneTimeCredits = member['One Time Credits'] || 0;
-  console.log(oneTimeCredits,'One time credits available');
+  const kidsClassCredits = member['KidsClassCredit'] || 0;
+  const adultClassCredits = member['AdultClassCredit'] || 0;
+  // const oneTimeCredits = member['One Time Credits'] || 0;
+  // console.log(oneTimeCredits,'One time credits available');
   // 2. Check for double booking
  const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -79,9 +79,9 @@ const existingBookings = await base('tblefuz5SkZIDP0sl').select({
   }
 // ...existing code...
 if (!sub || sub === 'Not Active') {
-    // const creditField = classType === 'Mens' || classType === 'Ladies' ? 'AdultClassCredit' : 'KidsClassCredit';
-    // const currentCredits = classType === 'Mens' || classType === 'Ladies' ? adultClassCredits : kidsClassCredits;
-  if (oneTimeCredits <= 0) {
+    const creditField = classType === 'Adults'  ? 'AdultClassCredit' : 'KidsClassCredit';
+    const currentCredits = classType === 'Adults' ? adultClassCredits : kidsClassCredits;
+  if (currentCredits <= 0) {
     return new Response(JSON.stringify({ Message: "You need an active subscription or available one-time class credits to book a class.", type: 'error' }), {
       status: 403,
       headers: { "Content-Type": "application/json" },
@@ -92,12 +92,11 @@ if (!sub || sub === 'Not Active') {
     {
       id: userSession.user.id,
       fields: {
-        ['One Time Credits']: oneTimeCredits - 1
+          [creditField]: currentCredits - 1
       }
     }
   ]);
 }
-// ...existing code...
   // 4. Create the booking
   await base("tblefuz5SkZIDP0sl").create({
     "Members": [userSession.user.id],

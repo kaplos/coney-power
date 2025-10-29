@@ -61,7 +61,7 @@ const Membership = () => {
 
             {
                 name: "Single Class",
-                price: 35,
+                price: 30,
                 period: "One-time",
                 description: "Perfect for getting started",
                 features: ["Access to one class"],
@@ -97,7 +97,7 @@ const Membership = () => {
 
             {
                 name: "Single Class",
-                price: 35,
+                price: 30,
                 period: "One-time",
                 description: "Perfect for getting started",
                 features: ["Access to one class"],
@@ -133,7 +133,7 @@ const Membership = () => {
 
             {
                 name: "Single Class",
-                price: 35,
+                price: 30,
                 period: "One-time",
                 description: "Perfect for getting started",
                 features: ["Access to one class"],
@@ -149,27 +149,9 @@ const Membership = () => {
                 features: ["Classes 4 days a week"],
                 popular: true,
             },
-
             {
-                name: "Standard",
-                price: 180,
-                period: "month",
-                description: "Budget friendly option",
-                features: ["Classes 3 days a week"],
-                popular: false,
-            },
-            {
-                name: "Basic",
-                price: 160,
-                period: "month",
-                description: "Perfect for getting started",
-                features: ["Sundays Only ( 2 back to back sessions )"],
-                popular: false,
-            },
-
-            {
-                name: "Single Class",
-                price: 35,
+                name: "Single Kids Class",
+                price: 20,
                 period: "One-time",
                 description: "Perfect for getting started",
                 features: ["Access to one class"],

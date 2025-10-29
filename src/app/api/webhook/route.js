@@ -105,18 +105,18 @@ async function addToAirtable(event) {
     try {
       // Determine which credit to add based on metadata.product
       // These IDs should match your checkout route's metaData for each class type
-      // const singleKidsClassId = "recguITtonVGfoAfn";
-      // const singleAdultClassId = "recfs32A6UrFiAOCY";
+      const singleKidsClassId = "rec5IaVRYFfEzwrYM";
+      const singleAdultClassId = "recfs32A6UrFiAOCY";
 
-      // let creditField = null;
+      let creditField = null;
 
-      // if (metadata.product === singleKidsClassId) {
-      //   creditField = "KidsClassCredit";
-      // } else if (metadata.product === singleAdultClassId) {
-      //   creditField = "AdultClassCredit";
-      // }
+      if (metadata.product === singleKidsClassId) {
+        creditField = "KidsClassCredit";
+      } else if (metadata.product === singleAdultClassId) {
+        creditField = "AdultClassCredit";
+      }
 
-      // if (creditField) {
+  if (creditField) {
         // Find the user record
         const userRecords = await base('tblEuSd8AfoXS8rau').select({
           filterByFormula: `{Member Id} = "${metadata.userId}"`,
@@ -129,22 +129,21 @@ async function addToAirtable(event) {
         }
 
         const userRecord = userRecords[0];
-        // const currentCredits = userRecord.fields[creditField] || 0;
-        const currentCredits = userRecord.fields['One Time Credits'] || 0;
+        const currentCredits = userRecord.fields[creditField] || 0;
 
         // Increment the appropriate credit
         await base("tblEuSd8AfoXS8rau").update([
           {
             id: userRecord.id,
             fields: {
-              ['One Time Credits']: currentCredits + 1,
+               [creditField]: currentCredits + 1,
               'Class Category': metadata.category,
               'Gender': metadata.gender
             },
           },
         ]);
-        console.log(`Added 1 credit to One Time Credits for user ${metadata.userId}`);
-      // }
+         console.log(`Added 1 credit to ${creditField} for user ${metadata.userId}`);
+      }
 
       // Optionally, store the payment record as before
       // const record = await base("tblefuz5SkZIDP0sl").create({
