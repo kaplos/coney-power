@@ -12,7 +12,7 @@ import {startOfWeek, endOfWeek } from '@/lib/getWeekInfo.js';
 // console.log('AIRTABLE_BASE_ID:', process.env.AIRTABLE_BASE_ID || 'Not Set');
 
 // Initialize Airtable base
-export const revalidate = 60*60*12; // Revalidate every 12 hours  
+// export const revalidate = 60*60*12; // Revalidate every 12 hours  
 export async function GET(req) {
   const userSession = await getServerSession(authOptions);
   // console.log('User session:', userSession);
