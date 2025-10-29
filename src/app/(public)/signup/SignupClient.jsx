@@ -20,6 +20,10 @@ export default function SignupClient() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [showReset, setShowReset] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetMsg, setResetMsg] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
   const { data: session } = useSession();
   const searchParams = useSearchParams();
 
@@ -182,6 +186,26 @@ export default function SignupClient() {
     }
   };
 
+  async function handlePasswordReset(e) {
+    e.preventDefault();
+    setResetMsg("");
+    setResetLoading(true);
+    try {
+      const res = await fetch("/api/password-reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: resetEmail }),
+      });
+      const data = await res.json();
+      setResetLoading(false);
+      if (data.ok) setResetMsg("Reset link sent! Check your email.");
+      else setResetMsg(data.error || "Error sending reset link.");
+    } catch (err) {
+      setResetLoading(false);
+      setResetMsg("Network error. Try again.");
+    }
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-[#1a1a1a] to-[#222] px-4">
       {/* --- UI copied from your page.jsx --- */}
@@ -258,14 +282,65 @@ export default function SignupClient() {
             </div>
             {error && <div className="text-red-500 text-sm">{error}</div>}
             {success && <div className="text-green-500 text-sm">Signed in! Redirecting…</div>}
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <button type="button" onClick={() => setStep(1)} className="text-sm text-gray-400 hover:text-white underline">Back</button>
               <button type="submit" disabled={loading} className="ml-2 flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-[#C5a572] hover:bg-[#b89c5e]">
                 {loading ? "Signing in..." : "Sign In"}
               </button>
             </div>
+            <div className="text-right mt-2">
+              <button
+                type="button"
+                className="text-xs text-[#C5a572] hover:underline"
+                onClick={() => setShowReset(true)}
+              >
+                Forgot password?
+              </button>
+            </div>
           </form>
         )}
+
+        {/* Password Reset Modal/Form */}
+        {showReset && (
+  <div className="fixed inset-0 bg-gradient-to-br from-black via-[#1a1a1a] to-[#222] bg-opacity-60 flex items-center justify-center z-50">
+    <div className="bg-black border border-white rounded-lg p-6 w-full max-w-sm">
+      <h2 className="text-lg font-bold mb-4 text-white">Reset Password</h2>
+      {resetMsg && resetMsg.startsWith("Reset link sent") ? (
+        <div className="text-green-500 text-center mb-4">
+          Check your email for a reset link.
+        </div>
+      ) : (
+        <form onSubmit={handlePasswordReset} className="space-y-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={resetEmail}
+            onChange={e => setResetEmail(e.target.value)}
+            required
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <button
+            type="submit"
+            disabled={resetLoading}
+            className="w-full py-2 bg-[#C5a572] text-white rounded"
+          >
+            {resetLoading ? "Sending..." : "Send Reset Link"}
+          </button>
+          <button
+            type="button"
+            className="w-full py-2 mt-2 border border-gray-300 bg-white rounded text-gray-700"
+            onClick={() => { setShowReset(false); setResetMsg(""); setResetEmail(""); }}
+          >
+            Cancel
+          </button>
+        </form>
+      )}
+      {resetMsg && !resetMsg.startsWith("Reset link sent") && (
+        <div className="mt-2 text-sm text-center text-red-500">{resetMsg}</div>
+      )}
+    </div>
+  </div>
+)}
 
         <div className="mt-8 text-center text-sm text-gray-400">
           {mode === "signup" ? (

@@ -15,11 +15,11 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    EmailProvider({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
-      maxAge: 15 * 60, // How long email links are valid for (default 24h)
-  }),
+  //   EmailProvider({
+  //     server: process.env.EMAIL_SERVER,
+  //     from: process.env.EMAIL_FROM,
+  //     maxAge: 15 * 60, // How long email links are valid for (default 24h)
+  // }),
 CredentialsProvider({
   name: "Email and Password",
   credentials: {
