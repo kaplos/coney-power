@@ -157,11 +157,10 @@ export async function POST(request) {
     
    transporter.sendMail({
     from: process.env.FROM_EMAIL,
-    to: "coneypower18@gmail.com",
-    // to: "candminnovators@gmail.com",
+    to: process.env.NOTIFICATION_EMAIL,
     subject: "New Class Booking",
     text: getEmailNotificationBody(userSession, classDetails),
-}).catch(console.error); // Optional: log errors
+    }).catch(console.error); // Optional: log errors
 
     return new Response(
         JSON.stringify({
